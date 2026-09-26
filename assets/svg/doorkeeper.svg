@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 200" width="120" height="200" fill="currentColor" role="img" aria-label="The doorkeeper before the law">
+<mask id="dk" maskUnits="userSpaceOnUse" x="0" y="0" width="120" height="200">
+     <rect width="120" height="200" fill="#fff"/>
+  <path d="M49.4 47 L52.6 47 L59 87 L56 87.6 Z" fill="#000"/>
+  <path d="M70.6 47 L67.4 47 L61 87 L64 87.6 Z" fill="#000"/>
+   </mask>
+<g mask="url(#dk)">
+  <path d="M47 27 C47 12 52 7 60 7 C68 7 73 12 73 27 Z"/>
+  <ellipse cx="60" cy="27" rx="15.5" ry="3.6"/>
+  <ellipse cx="60" cy="36" rx="10.6" ry="11.4"/>
+  <path d="M51 42 C51 60 55 88 60 88 C65 88 69 60 69 42 C66 48 54 48 51 42 Z"/>
+  <path d="M28 57 q3 -9 12 -12 q9 -3 20 -3 q11 0 20 3 q9 3 12 12
+           q-5 8 -13 10 q-9 2 -19 2 q-10 0 -19 -2 q-8 -2 -13 -10 z"/>
+  <path d="M30 64 C30 58 42 52 60 52 C78 52 90 58 90 64 L97 181 L23 181 Z"/>
+  <ellipse cx="40" cy="182" rx="12" ry="4.4"/>
+  <ellipse cx="80" cy="182" rx="12" ry="4.4"/>
+</g>
+</svg>

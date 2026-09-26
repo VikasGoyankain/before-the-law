@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 200" width="120" height="200" fill="currentColor" role="img" aria-label="The man grown small in his old age">
+<g>
+  <path d="M46 106 C46 96 50 92 56 92 C62 92 66 96 66 106 Z"/>
+  <ellipse cx="56" cy="106.5" rx="16" ry="2.8"/>
+  <ellipse cx="56" cy="113" rx="7" ry="7.6"/>
+  <path d="M52 118 h8 v7 h-8 z"/>
+  <path d="M42 135 C42 126 47 122 56 122 C65 122 70 127 69 136 L67 165 L44 165 Z"/>
+  <path d="M44 162 L70 162 L72 180 L42 180 Z"/>
+  <ellipse cx="48" cy="181" rx="8" ry="3.2"/>
+  <ellipse cx="66" cy="181" rx="8" ry="3.2"/>
+</g>
+</svg>

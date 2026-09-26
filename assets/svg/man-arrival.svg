@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 200" width="120" height="200" fill="currentColor" role="img" aria-label="The man from the country, newly arrived">
+<g>
+  <path d="M41 39 C41 25 46 20 54 20 C62 20 67 25 67 39 Z"/>
+  <ellipse cx="54" cy="39.5" rx="21.5" ry="3.4"/>
+  <ellipse cx="54" cy="47" rx="8.6" ry="9.4"/>
+  <path d="M49 53 h10 v10 h-10 z"/>
+  <path d="M38 71 C38 64 44 60 54 60 C64 60 70 64 70 71 L67 110 L74 150 L34 150 L41 110 Z"/>
+  <path d="M39 71 L32 112 L41 114 L46 73 Z"/>
+  <path d="M63 69 L82 108 L73 113 L57 75 Z"/>
+  <path d="M43 146 L41 183 L51 183 L52 146 Z"/>
+  <path d="M57 146 L58 183 L68 183 L66 146 Z"/>
+  <ellipse cx="45" cy="184.5" rx="8.4" ry="3.6"/>
+  <ellipse cx="64" cy="184.5" rx="8.4" ry="3.6"/>
+  <path d="M78 118 q12 -1 15 8 q3 9 -6 12 q-11 3 -15 -6 q-3 -9 6 -14 z"/>
+  <path d="M75 116 l9 -2 l-2 7 z"/>
+</g>
+</svg>

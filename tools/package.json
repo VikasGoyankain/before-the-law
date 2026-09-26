@@ -1,0 +1,1 @@
+{"name":"btl-asset-tools","private":true,"type":"module","version":"1.0.0","dependencies":{"esbuild":"^0.28.2","howler":"^2.2.4","lamejs":"^1.2.1","puppeteer":"^25.9.0","sharp":"^0.35.4","three":"^0.185.1"}}

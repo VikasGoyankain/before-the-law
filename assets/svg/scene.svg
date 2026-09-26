@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" fill="currentColor" role="img" aria-label="The man, the doorkeeper, and the gate">
+<g class="scene-far" opacity="0.45"><g transform="translate(20 411) scale(0.5)">
+<g>
+  <path d="M18 88 L18 76 L29 68 L40 76 L40 88 Z"/><path d="M44 88 L44 79 L52.5 73 L61 79 L61 88 Z"/><path d="M66 88 L66 73 L79 63 L92 73 L92 88 Z"/>
+  <path d="M99 88 L99 46 L105 30 L111 46 L111 88 Z"/>
+  <rect x="104.1" y="22" width="1.8" height="9"/><rect x="101.5" y="24.6" width="7" height="1.8"/>
+  <path d="M116 88 L116 77 L126 70 L136 77 L136 88 Z"/><path d="M140 88 L140 74 L154 65 L168 74 L168 88 Z"/><path d="M172 88 L172 80 L180 74 L188 80 L188 88 Z"/><path d="M192 88 L192 76 L204 68 L216 76 L216 88 Z"/>
+  <rect x="0" y="88" width="240" height="2.4"/></g>
+</g></g>
+<g transform="translate(245 106) scale(1.55)">
+<g class="gate-void" fill="none"><path d="M48 232 L48 100 A52 52 0 0 1 152 100 L152 232 Z"/></g><path d="M12 232 L12 100 A88 88 0 0 1 188 100 L188 232 L152 232 L152 100 A52 52 0 0 0 48 100 L48 232 Z"/><rect x="2" y="224" width="196" height="11"/>
+</g>
+<g transform="translate(343 293) scale(0.95)">
+<mask id="sc-dk" maskUnits="userSpaceOnUse" x="0" y="0" width="120" height="200">
+     <rect width="120" height="200" fill="#fff"/>
+  <path d="M49.4 47 L52.6 47 L59 87 L56 87.6 Z" fill="#000"/>
+  <path d="M70.6 47 L67.4 47 L61 87 L64 87.6 Z" fill="#000"/>
+   </mask>
+<g mask="url(#sc-dk)">
+  <path d="M47 27 C47 12 52 7 60 7 C68 7 73 12 73 27 Z"/>
+  <ellipse cx="60" cy="27" rx="15.5" ry="3.6"/>
+  <ellipse cx="60" cy="36" rx="10.6" ry="11.4"/>
+  <path d="M51 42 C51 60 55 88 60 88 C65 88 69 60 69 42 C66 48 54 48 51 42 Z"/>
+  <path d="M28 57 q3 -9 12 -12 q9 -3 20 -3 q11 0 20 3 q9 3 12 12
+           q-5 8 -13 10 q-9 2 -19 2 q-10 0 -19 -2 q-8 -2 -13 -10 z"/>
+  <path d="M30 64 C30 58 42 52 60 52 C78 52 90 58 90 64 L97 181 L23 181 Z"/>
+  <ellipse cx="40" cy="182" rx="12" ry="4.4"/>
+  <ellipse cx="80" cy="182" rx="12" ry="4.4"/>
+</g>
+</g>
+<g transform="translate(514 310) scale(0.85)">
+<g>
+  <path d="M41 39 C41 25 46 20 54 20 C62 20 67 25 67 39 Z"/>
+  <ellipse cx="54" cy="39.5" rx="21.5" ry="3.4"/>
+  <ellipse cx="54" cy="47" rx="8.6" ry="9.4"/>
+  <path d="M49 53 h10 v10 h-10 z"/>
+  <path d="M38 71 C38 64 44 60 54 60 C64 60 70 64 70 71 L67 110 L74 150 L34 150 L41 110 Z"/>
+  <path d="M39 71 L32 112 L41 114 L46 73 Z"/>
+  <path d="M63 69 L82 108 L73 113 L57 75 Z"/>
+  <path d="M43 146 L41 183 L51 183 L52 146 Z"/>
+  <path d="M57 146 L58 183 L68 183 L66 146 Z"/>
+  <ellipse cx="45" cy="184.5" rx="8.4" ry="3.6"/>
+  <ellipse cx="64" cy="184.5" rx="8.4" ry="3.6"/>
+  <path d="M78 118 q12 -1 15 8 q3 9 -6 12 q-11 3 -15 -6 q-3 -9 6 -14 z"/>
+  <path d="M75 116 l9 -2 l-2 7 z"/>
+</g>
+</g>
+<rect x="0" y="468" width="800" height="2.6"/>
+</svg>

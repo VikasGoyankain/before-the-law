@@ -1,0 +1,8 @@
+assets/_source/
+node_modules/
+tools/node_modules/
+
+# headless-harness output, regenerated on every test run
+tools/*.png
+tools/sheet.svg
+tools/.tmp-tex/

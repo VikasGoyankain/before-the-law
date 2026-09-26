@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 200" width="120" height="200" fill="currentColor" role="img" aria-label="The man seated at the side of the gate">
+<g>
+  <path d="M42 107 C42 94 46 90 53 90 C60 90 64 94 64 107 Z"/>
+  <ellipse cx="53" cy="107" rx="19.5" ry="3.2"/>
+  <ellipse cx="53" cy="114.5" rx="8.4" ry="9"/>
+  <path d="M49 120 h8 v9 h-8 z"/>
+  <path d="M37 178 C34 152 38 132 48 127 C59 125 63 133 62 141 L61 180 Z"/>
+  <ellipse cx="46" cy="180" rx="17" ry="8"/>
+  <path d="M40 176 L78 142 L89 154 L51 188 Z"/>
+  <path d="M78 144 L90 152 L89 187 L77 187 Z"/>
+  <path d="M52 131 L85 147 L81 157 L48 141 Z"/>
+  <ellipse cx="83" cy="187.5" rx="10.5" ry="4"/>
+  <path d="M18 168 q12 -2 16 7 q3 9 -6 12 q-11 3 -15 -6 q-3 -8 5 -13 z"/>
+</g>
+</svg>

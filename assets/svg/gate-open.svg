@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" width="200" height="240" fill="currentColor" role="img" aria-label="The gate, standing open">
+<g class="gate-void" fill="none"><path d="M48 232 L48 100 A52 52 0 0 1 152 100 L152 232 Z"/></g><path d="M12 232 L12 100 A88 88 0 0 1 188 100 L188 232 L152 232 L152 100 A52 52 0 0 0 48 100 L48 232 Z"/><rect x="2" y="224" width="196" height="11"/><g class="gate-leaves"><rect x="48.90" y="104" width="2.2" height="122"/><rect x="53.40" y="104" width="2.2" height="122"/><rect x="57.90" y="104" width="2.2" height="122"/>
+  <rect x="48.5" y="104" width="12" height="2.2"/><rect x="48.5" y="165" width="12" height="2.2"/><rect x="48.5" y="223.8" width="12" height="2.2"/><rect x="139.90" y="104" width="2.2" height="122"/><rect x="144.40" y="104" width="2.2" height="122"/><rect x="148.90" y="104" width="2.2" height="122"/>
+  <rect x="139.5" y="104" width="12" height="2.2"/><rect x="139.5" y="165" width="12" height="2.2"/><rect x="139.5" y="223.8" width="12" height="2.2"/></g>
+</svg>
