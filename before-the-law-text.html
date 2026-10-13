@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>Before the Law, text-only: Kafka’s parable as interactive fiction</title>
+<meta name="description" content="The text-only version of the playable “Before the Law”: the same choices and the same years, without 3D or narration. It runs on any device, however old.">
+<meta name="author" content="Vikas Goyanka">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#0a090b">
+<link rel="canonical" href="https://vikasgoyankain.github.io/before-the-law/before-the-law-text.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Playable Readings">
+<meta property="og:locale" content="en_IN">
+<meta property="og:title" content="Before the Law, text-only: Kafka’s parable as interactive fiction">
+<meta property="og:description" content="The text-only version of the playable “Before the Law”: the same choices and the same years, without 3D or narration. It runs on any device, however old.">
+<meta property="og:url" content="https://vikasgoyankain.github.io/before-the-law/before-the-law-text.html">
+<meta property="og:image" content="https://vikasgoyankain.github.io/before-the-law/og-before-the-law.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Before the Law: a lit gateway, a doorkeeper, and a man waiting.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Before the Law, text-only: Kafka’s parable as interactive fiction">
+<meta name="twitter:description" content="The text-only version of the playable “Before the Law”: the same choices and the same years, without 3D or narration. It runs on any device, however old.">
+<meta name="twitter:image" content="https://vikasgoyankain.github.io/before-the-law/og-before-the-law.jpg">
+<meta name="twitter:image:alt" content="Before the Law: a lit gateway, a doorkeeper, and a man waiting.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2213%22%20fill%3D%22%230a090b%22%2F%3E%3Cpath%20d%3D%22M21%2055V28a11%2011%200%200%201%2022%200v27z%22%20fill%3D%22%23ffd690%22%20fill-opacity%3D%22.55%22%2F%3E%3Cpath%20d%3D%22M17%2055V28a15%2015%200%200%201%2030%200v27%22%20fill%3D%22none%22%20stroke%3D%22%23e8bd6a%22%20stroke-width%3D%224.5%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":["VideoGame","LearningResource"],"@id":"https://vikasgoyankain.github.io/before-the-law/before-the-law-text.html#game","name":"Before the Law (text-only)","url":"https://vikasgoyankain.github.io/before-the-law/before-the-law-text.html","description":"Play Kafka’s “Before the Law” from the inside: you are the man from the country, the gate stands open, and every choice costs years. A free, narrated 3D game for the classroom, about fifteen minutes.","inLanguage":"en","author":{"@type":"Person","name":"Vikas Goyanka","affiliation":{"@type":"CollegeOrUniversity","name":"National Law University, Delhi"}},"isAccessibleForFree":true,"isBasedOn":{"@type":"CreativeWork","name":"Before the Law","alternateName":"Vor dem Gesetz","datePublished":"1915","inLanguage":"de","author":{"@type":"Person","name":"Franz Kafka"}},"about":{"@type":"CreativeWork","name":"Before the Law","alternateName":"Vor dem Gesetz","datePublished":"1915","inLanguage":"de","author":{"@type":"Person","name":"Franz Kafka"}},"genre":["Interactive fiction","Educational game"],"gamePlatform":"Web browser","applicationCategory":"Game","operatingSystem":"Any","playMode":"SinglePlayer","timeRequired":"PT15M","learningResourceType":"Interactive game","educationalUse":["Classroom activity","Discussion","Self study"],"educationalLevel":["Senior secondary","Undergraduate"],"audience":{"@type":"EducationalAudience","educationalRole":["student","teacher"]},"teaches":"Close reading and interpretation of Franz Kafka’s parable, experienced first-hand","image":"https://vikasgoyankain.github.io/before-the-law/og-before-the-law.jpg","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"}}]}</script>
+<style>
+:root{
+  --bg:#0a0908;
+  --ink:#cdc3b2;
+  --dim:#6b6459;
+  --faint:#332f2a;
+  --drain:3200ms;
+}
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Georgia,"Iowan Old Style","Palatino Linotype",Palatino,"Times New Roman",serif;
+  font-size:clamp(1rem,0.94rem + 0.45vw,1.15rem);
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  transition:background-color var(--drain) linear;
+}
+
+/* Old age. Colours drain. */
+body.old{
+  --bg:#060606;
+  --ink:#8d8a84;
+  --dim:#4a4844;
+  --faint:#242424;
+}
+
+/* The radiance from the gateway: the only saturated colour in the piece. */
+#glow{
+  position:fixed; left:50%; top:0;
+  width:min(130vw,1000px); height:78vh;
+  transform:translateX(-50%);
+  background:radial-gradient(ellipse 52% 62% at 50% -4%,
+     rgba(255,196,107,.26), rgba(255,190,100,.09) 42%, rgba(255,190,100,0) 72%);
+  opacity:0;
+  transition:opacity 4200ms ease;
+  pointer-events:none;
+  z-index:0;
+}
+body.old #glow{opacity:1;}
+
+#stage{
+  position:relative; z-index:1;
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  min-height:100vh;
+  min-height:100dvh;
+  max-width:36rem;
+  margin:0 auto;
+  padding:0 1.5rem;
+}
+
+#tableau{
+  padding-top:clamp(3.5rem,9vh,6rem);
+  text-align:center;
+  font-style:italic;
+  color:var(--dim);
+  font-size:.94em;
+  opacity:0;
+  transition:opacity 1800ms ease,color var(--drain) linear;
+}
+#tableau.in{opacity:1;}
+body.old #tableau.in{opacity:.5;}
+
+#text{
+  align-self:center;
+  padding:2.5rem 0;
+  transition:opacity 1500ms ease,font-size var(--drain) ease,color var(--drain) linear;
+}
+#text.out{opacity:0;}
+body.old #text{font-size:.9em;}
+
+.line{
+  margin:0 0 1.25em;
+  opacity:0;
+  transition:opacity 1200ms ease;
+  text-wrap:pretty;
+}
+.line.in{opacity:1;}
+.line:last-child{margin-bottom:0;}
+body.old .line{text-shadow:0 0 14px var(--bg),0 0 6px var(--bg);}
+
+/* Choices are bottom-anchored, so ENTER never moves between scenes. */
+#choices{
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  min-height:12.5rem;
+  padding-bottom:calc(clamp(2.5rem,7vh,4.5rem) + env(safe-area-inset-bottom,0px));
+  opacity:0;
+  transition:opacity 900ms ease;
+}
+#choices.in{opacity:1;}
+#choices:not(.in) button{pointer-events:none;}
+
+#choices button{
+  display:block;
+  width:100%;
+  margin:0;
+  padding:.85rem .1rem;
+  text-align:left;
+  background:none;
+  border:0;
+  border-top:1px solid var(--faint);
+  color:var(--dim);
+  font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:.76rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  line-height:1.4;
+  cursor:pointer;
+  user-select:none;
+  -webkit-user-select:none;
+  -webkit-tap-highlight-color:transparent;
+  transition:color 500ms ease,border-color var(--drain) linear,text-shadow 900ms ease;
+}
+#choices button:last-child{border-bottom:1px solid var(--faint);}
+#choices button:hover,#choices button:focus-visible{color:var(--ink);}
+#choices button:focus-visible{outline:1px solid var(--dim);outline-offset:4px;}
+
+/* In old age the ENTER button is the brightest thing on the screen. */
+body.old #choices button{color:var(--faint);}
+body.old #choices button:hover,body.old #choices button:focus-visible{color:var(--dim);}
+body.old #choices button.enter{
+  color:#ffd79a;
+  text-shadow:0 0 22px rgba(255,196,107,.5),0 0 8px rgba(255,196,107,.35);
+}
+body.old #choices button.enter:hover,body.old #choices button.enter:focus-visible{color:#fff0d6;}
+
+#years{
+  position:fixed; top:1.15rem; right:1.25rem;
+  z-index:3;
+  font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:.68rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:#443e36;
+  transition:opacity 1600ms ease,color var(--drain) linear;
+  pointer-events:none;
+}
+#years.gone{opacity:0;}
+body.old #years{color:#3e3c38;}
+
+#black{
+  position:fixed; inset:0; z-index:4;
+  background:#000;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 1800ms ease;
+  display:grid;
+  place-items:center;
+  padding:2rem;
+}
+#black.on{opacity:1;pointer-events:auto;}
+
+#final{
+  max-width:34rem;
+  margin:0;
+  text-align:center;
+  color:#9c9384;
+  opacity:0;
+  transition:opacity 2600ms ease;
+  text-wrap:pretty;
+}
+#final.in{opacity:1;}
+#final b{font-weight:normal;color:#cfc6b6;}
+
+#again{
+  position:fixed; bottom:1.25rem; right:1.35rem;
+  z-index:5;
+  width:auto;
+  border:0;
+  font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:.66rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:#2e2c29;
+  background:none;
+  padding:.5rem;
+  cursor:pointer;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 2000ms ease,color 500ms ease;
+}
+#again.in{opacity:1;pointer-events:auto;}
+#again:hover,#again:focus-visible{color:#6b6459;}
+#home{
+  position:fixed; bottom:1.25rem; left:1.35rem;
+  z-index:5;
+  font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:.66rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  text-decoration:none;
+  color:#a08a5c;
+  padding:.5rem;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 2000ms ease,color 500ms ease;
+}
+#home.in{opacity:1;pointer-events:auto;}
+#home:hover,#home:focus-visible{color:#e8bd6a;}
+#black{align-content:center;gap:2.6rem;}
+
+/* the acknowledgement, after the ending */
+#thanks{max-width:33rem;margin:0;padding-top:1.6rem;border-top:1px solid rgba(232,189,106,.24);text-align:center;color:#a89e8e;
+  font-size:.95rem;line-height:1.7;text-wrap:pretty;opacity:0;transition:opacity 2600ms ease 1200ms;}
+#thanks.in{opacity:1;}
+#thanks p{margin:0;}
+#thanks b{font-weight:normal;color:#e8bd6a;}
+#thanks .tk{margin-bottom:.9rem;font:.64rem/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#a08a5c;}
+#thanks .ts{margin-top:.9rem;font:.64rem/1.6 ui-sans-serif,system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#6b6459;}
+
+
+@media (max-width:400px){
+  #stage{padding:0 1.15rem;}
+  #choices{min-height:11.5rem;}
+  #choices button{font-size:.72rem;letter-spacing:.13em;}
+}
+
+/* classroom board */
+html.board{font-size:clamp(20px,1.25vw,44px)}
+html.board body{font-size:1rem}
+[data-fs]{display:none!important}
+html.board [data-fs]{display:inline-block!important}
+@media (max-width:1100px){html:not(.board) [data-board]{display:none!important}}
+.board-corner{position:fixed;top:.5rem;left:.6rem;z-index:6;display:flex;gap:.2rem}
+.board-corner button{border:0;background:none;cursor:pointer;padding:.6rem .5rem;min-height:2.4rem;
+ font:.62rem/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#5a534a}
+.board-corner button:hover,.board-corner button:focus-visible{color:#b9ae9c}
+html.board .board-corner button{color:#8d8475}
+</style>
+<script>(function(){
+var d=document,r=d.documentElement,q=/[?&]board=([01])/.exec(location.search),s=null,on;
+try{s=localStorage.getItem('board')}catch(e){}
+on=q?q[1]==='1':s!==null?s==='1':(Math.max(screen.width||0,window.innerWidth||0)>=1600&&navigator.maxTouchPoints>0);
+function keep(){try{localStorage.setItem('board',on?'1':'0')}catch(e){}}
+if(q)keep();
+r.classList.toggle('board',on);
+function fs(){return d.fullscreenElement||d.webkitFullscreenElement}
+function paint(){
+  var i,h,m,l=d.querySelectorAll('[data-board]');
+  r.classList.toggle('board',on);
+  for(i=0;i<l.length;i++){l[i].textContent=l[i].getAttribute('data-board')+(on?': on':': off');l[i].setAttribute('aria-pressed',on?'true':'false')}
+  l=d.querySelectorAll('[data-fs]');
+  for(i=0;i<l.length;i++)l[i].textContent=fs()?'Exit full screen':'Full screen';
+  l=d.querySelectorAll('a[href]');
+  for(i=0;i<l.length;i++){h=l[i].getAttribute('href');m=/^([a-z-]+[.]html)([?][^#]*)?(#.*)?$/.exec(h);
+    if(m)l[i].setAttribute('href',m[1]+(on?'?board=1':'')+(m[3]||''))}
+}
+function btn(label,attr,cls){var b=d.createElement('button');b.type='button';b.setAttribute(attr,label);if(cls)b.className=cls;return b}
+function ready(){
+  var set=d.getElementById('settings'),slot=d.querySelector('[data-board-slot]'),card,c;
+  var canFs=r.requestFullscreen||r.webkitRequestFullscreen;
+  if(set){
+    set.appendChild(btn('Board','data-board'));if(canFs)set.appendChild(btn('','data-fs'));
+    card=d.querySelector('#intro .links')||d.querySelector('#intro .card');
+    if(card)card.appendChild(btn('Classroom board','data-board','quiet'));
+  }else if(slot){
+    slot.appendChild(btn('Classroom board','data-board'));if(canFs)slot.appendChild(btn('','data-fs'));
+  }else{
+    c=d.createElement('div');c.className='board-corner';
+    c.appendChild(btn('Classroom board','data-board'));if(canFs)c.appendChild(btn('','data-fs'));
+    d.body.appendChild(c);
+  }
+  d.addEventListener('click',function(e){
+    var t=e.target.closest?e.target.closest('[data-board],[data-fs]'):null,p;
+    if(!t)return;
+    if(t.hasAttribute('data-board')){on=!on;keep()}
+    else if(fs()){(d.exitFullscreen||d.webkitExitFullscreen).call(d)}
+    else{p=(r.requestFullscreen||r.webkitRequestFullscreen).call(r);if(p&&p.catch)p.catch(function(){})}
+    paint();
+  });
+  d.addEventListener('fullscreenchange',paint);d.addEventListener('webkitfullscreenchange',paint);
+  paint();
+}
+if(d.readyState==='loading')d.addEventListener('DOMContentLoaded',ready);else ready();
+})();</script>
+</head>
+<body>
+
+<div id="glow"></div>
+
+<div id="stage">
+  <header id="tableau">Before the law stands a doorkeeper.</header>
+  <main id="text"></main>
+  <nav id="choices" aria-label="Choices"></nav>
+</div>
+
+<div id="years" aria-hidden="true">0 years</div>
+
+<div id="black"><p id="final"></p>
+  <aside id="thanks" aria-label="Acknowledgement">
+    <p class="tk">With gratitude</p>
+    <p>The idea of making this game came to me from the teaching of <b>Prof. (Dr.) Prasannanshu</b>, who asks his students to be creative, and to answer a work of literature by making something of their own.</p>
+    <p class="ts">Vikas Goyanka &#183; LLB26057 &#183; National Law University, Delhi</p>
+  </aside></div>
+<a id="home" href="index.html">Home page</a>
+<button id="again" type="button">Begin again</button>
+
+<script>
+(function(){
+"use strict";
+
+/* -------------------------------------------------------------- *
+ *  Text: an original English adaptation of Kafka's Vor dem Gesetz.
+ * -------------------------------------------------------------- */
+var T = {
+
+  prologue: [
+    [
+      "In a village far from the city, people speak of the Law.",
+      "No one there can tell you exactly what it is. Only that it is in the city, behind a gate, and that it is meant for everyone."
+    ],
+    [
+      "You are a man from the country. All your life you have wondered about it.",
+      "One morning you decide that you will go, and ask to be let in."
+    ],
+    [
+      "You pack everything that might be of use on the way.",
+      "The money for the journey home. Your good coat. Your father&#8217;s watch. Letters of recommendation. Bread. A walking stick."
+    ],
+    [
+      "You walk for many days, until the road is empty and the villages have stopped.",
+      "And then, in the dark, you see it: a gate standing on its own, wide open. And in front of it, a man."
+    ]
+  ],
+
+  open: [
+    "You have travelled a long way to reach him. Behind him the gate stands open, as it always does, and beyond it you can see nothing at all."
+  ],
+
+  s1ask: [
+    "He considers the request as though it were new to him.",
+    "&#8220;Not now,&#8221; he says.",
+    "You ask whether you might be admitted later. &#8220;It is possible,&#8221; he says. &#8220;But not now.&#8221;"
+  ],
+
+  s1look: [
+    "You lean past him. The hall beyond is unlit and you can make out nothing, which does not stop you from looking for a long time.",
+    "The doorkeeper does not object. He steps aside a little to give you a better view, and laughs."
+  ],
+
+  s1enter: [
+    "He does not move to stop you.",
+    "&#8220;If it draws you so strongly, try it. Go in against my refusal. But understand that I am powerful, and I am only the lowest of the doorkeepers. In each hall beyond this one stands another, and each is more terrible than the last. The third of them I cannot bear to look at myself.&#8221;",
+    "You stand there for some time. Then you sit down at the side of the gate to think it over, and the thinking takes longer than you expected."
+  ],
+
+  s2ask: [
+    ["&#8220;Not yet.&#8221;"],
+    ["He asks you about your home, your travels, your family. He asks the way great men ask questions, and at the end he says again that he cannot let you in yet."],
+    ["&#8220;Not yet.&#8221;"],
+    ["He does not look up. &#8220;Not yet.&#8221;"],
+    ["&#8220;Not yet.&#8221;"]
+  ],
+
+  s2offer: [
+    "He accepts everything you offer. He takes it carefully, and as he puts it away he says: &#8220;I am only taking this so that you do not feel you have left something untried.&#8221;",
+    "You go on offering him things for years. He goes on taking them."
+  ],
+
+  s2study: [
+    "You learn his coat, the shape of his nose, the way his beard has thinned. After some years you know the fleas in his fur collar well enough to recognise them, and you ask the fleas to help you change his mind.",
+    "You are aware, while you do this, that it is absurd. You do it anyway."
+  ],
+
+  s2enter: [
+    [
+      "You rise. He watches you with mild interest and does not move.",
+      "You sit back down."
+    ],
+    [
+      "Not today. Today you are tired, and the hall beyond is dark, and there will be time."
+    ],
+    [
+      "You have been told what waits inside. You have never seen it. Both of these remain true, and you sit back down."
+    ]
+  ],
+
+  s2stool: [
+    "The doorkeeper gives you a little stool and lets you sit down at the side of the gate. You sit there for days and years."
+  ],
+
+  gifts: [
+    { id: "purse",   label: "The money for the journey home", line: "You give him the money you had kept for the journey home." },
+    { id: "coat",    label: "Your good coat",                 line: "You take off your good coat, the one you wore so as to look respectable before the law, and hand it to him." },
+    { id: "watch",   label: "Your father&#8217;s watch",      line: "You give him your father&#8217;s watch. It is still running." },
+    { id: "letters", label: "Your letters of recommendation", line: "You give him the letters that were meant to open doors for you." },
+    { id: "bread",   label: "The last of your bread",         line: "You give him the last of your bread." },
+    { id: "stick",   label: "Your walking stick",             line: "You give him your walking stick. You will not be needing it to walk anywhere." }
+  ],
+
+  s2offerAgain: [
+    "He takes it as carefully as the first thing. &#8220;Only so that you do not feel you have left something untried.&#8221;"
+  ],
+
+  s2offerNone: [
+    "You search your bundle and find nothing left in it.",
+    "He waits, politely, as though you might yet produce something."
+  ],
+
+  curse: [
+    "You curse your fate aloud, so loudly that it rings back to you out of the hall.",
+    "The doorkeeper waits until you have finished."
+  ],
+
+  grumble: [
+    "You no longer curse your fate aloud. You only grumble to yourself, and even that has become a habit."
+  ],
+
+  remember: [
+    ["You think of the village. You can still see all of it: the church, the smoke from the chimneys, your own door."],
+    ["You try to picture your house again, and find you are no longer sure which side of the road it stood on."],
+    ["You think of home. There is no one left there now who would know your face."]
+  ],
+
+  mark: [
+    ["You begin to scratch a mark into the stone for every year that passes."],
+    ["The marks have spread across the stone like a small field. You no longer count them. You only add to them."]
+  ],
+
+  s3: [
+    "You have become a child again in your old age, and the years at the gate have narrowed to a single doorkeeper standing between you and everything.",
+    "Your eyes are failing, or the world is going dark &#8212; you no longer know which. But in the darkness you can see a radiance breaking from the gateway, and it does not go out."
+  ],
+
+  s3enter: [ "You cannot stand." ],
+
+  s3question: [
+    "You cannot raise your body any longer, so you motion with your hand and he bends down to you, very far down, because you have grown small.",
+    "&#8220;What is it you want to know now?&#8221; he says. &#8220;You are insatiable.&#8221;",
+    "&#8220;Everyone strives to reach the law,&#8221; you say. &#8220;How is it that in all these years, no one but me has come here asking to be let in?&#8221;",
+    "He sees that you are at your end, and he raises his voice so that you will hear him.",
+    "&#8220;No one else could be admitted here. This entrance was meant for you alone. I am going now, and I am closing it.&#8221;"
+  ]
+};
+
+var CHOICES = {
+  1: [
+    {id:"ask",   label:"Ask to be admitted"},
+    {id:"look",  label:"Look through the gate"},
+    {id:"enter", label:"Enter", enter:true}
+  ],
+  2: [
+    {id:"ask",   label:"Ask to be admitted"},
+    {id:"offer", label:"Offer him what you have"},
+    {id:"study", label:"Study the doorkeeper"},
+    {id:"enter", label:"Enter", enter:true}
+  ],
+  3: [
+    {id:"question", label:"Ask the question you have never asked"},
+    {id:"enter",    label:"Enter", enter:true}
+  ]
+};
+
+/* -------------------------------------------------------------- *
+ *  State
+ * -------------------------------------------------------------- */
+var S;
+function reset(){
+  S = { years:0, asked:0, waitAsks:0, enterTurn:0, busy:true, over:false };
+}
+
+function stage(){
+  if (S.years >= 40) return 3;
+  if (S.years >= 3)  return 2;
+  return 1;
+}
+
+var tableau = document.getElementById("tableau");
+var textEl  = document.getElementById("text");
+var choices = document.getElementById("choices");
+var yearsEl = document.getElementById("years");
+var black   = document.getElementById("black");
+var finalEl = document.getElementById("final");
+var againEl = document.getElementById("again");
+var homeEl = document.getElementById("home"), thanksEl = document.getElementById("thanks");
+
+var timers = [];
+function later(fn, ms){ var t = setTimeout(fn, ms); timers.push(t); return t; }
+function clearTimers(){ timers.forEach(clearTimeout); timers = []; }
+
+/* -------------------------------------------------------------- *
+ *  Reveal: one line at a time, with real pauses
+ * -------------------------------------------------------------- */
+function reveal(lines, done){
+  textEl.classList.remove("out");
+  textEl.innerHTML = "";
+  var i = 0;
+  (function next(){
+    if (i >= lines.length){ later(done, 800); return; }
+    var p = document.createElement("p");
+    p.className = "line";
+    p.innerHTML = lines[i];
+    textEl.appendChild(p);
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ p.classList.add("in"); });
+    });
+    var wait = 950 + Math.min(2900, p.textContent.length * 27);
+    i++;
+    later(next, wait);
+  })();
+}
+
+function fadeOutText(cb){
+  if (!textEl.firstChild){ later(cb, 300); return; }
+  textEl.classList.add("out");
+  later(function(){
+    textEl.innerHTML = "";
+    textEl.classList.remove("out");
+    later(cb, 600);
+  }, 1550);
+}
+
+function showChoices(){
+  var list = CHOICES[stage()];
+  choices.innerHTML = "";
+  list.forEach(function(c){
+    var b = document.createElement("button");
+    b.type = "button";
+    b.textContent = c.label;
+    if (c.enter) b.className = "enter";
+    b.addEventListener("click", function(){ choose(c); });
+    choices.appendChild(b);
+  });
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){ choices.classList.add("in"); });
+  });
+}
+
+function hideChoices(){ choices.classList.remove("in"); }
+
+function updateYears(){
+  yearsEl.textContent = S.years + (S.years === 1 ? " year" : " years");
+}
+
+/* -------------------------------------------------------------- *
+ *  Turns
+ * -------------------------------------------------------------- */
+function nextEnterLines(){
+  /* The first press gets the doorkeeper's speech; after that the player
+     is only ever talking themselves back down. */
+  if (S.enterTurn === 0){ S.enterTurn = 1; return T.s1enter; }
+  var idx = (S.enterTurn - 1) % 3;
+  S.enterTurn++;
+  return T.s2enter[idx];
+}
+
+function respond(st, c){
+  if (st === 1){
+    if (c.id === "ask"){ S.asked++; return {years:1, lines:T.s1ask}; }
+    if (c.id === "look"){ return {years:1, lines:T.s1look}; }
+    return {years:1, lines:nextEnterLines()};
+  }
+  if (c.id === "ask"){
+    S.asked++; S.waitAsks++;
+    return {years:2, lines:T.s2ask[Math.min(S.waitAsks, 5) - 1]};
+  }
+  if (c.id === "offer") return {years:3, lines:T.s2offer};
+  if (c.id === "study") return {years:4, lines:T.s2study};
+  return {years:2, lines:nextEnterLines()};
+}
+
+function choose(c){
+  if (S.busy || S.over) return;
+  S.busy = true;
+  unlockAudio();
+  var st = stage();
+
+  if (st === 3){
+    hideChoices();
+    if (c.id === "enter"){
+      fadeOutText(function(){
+        reveal(T.s3enter, function(){ showChoices(); S.busy = false; });
+      });
+    } else {
+      fadeOutText(ending);
+    }
+    return;
+  }
+
+  var r = respond(st, c);
+  hideChoices();
+  fadeOutText(function(){
+    S.years += r.years;
+    updateYears();
+    reveal(r.lines, function(){
+      if (stage() === 3) oldAge();
+      else { showChoices(); S.busy = false; }
+    });
+  });
+}
+
+/* -------------------------------------------------------------- *
+ *  Scene 3
+ * -------------------------------------------------------------- */
+function oldAge(){
+  later(function(){
+    fadeOutText(function(){
+      document.body.classList.add("old");
+      later(function(){
+        reveal(T.s3, function(){ showChoices(); S.busy = false; });
+      }, 2800);
+    });
+  }, 1500);
+}
+
+function ending(){
+  S.busy = true;
+  reveal(T.s3question, function(){ later(blackout, 1500); });
+}
+
+function blackout(){
+  S.over = true;
+  black.classList.add("on");
+  yearsEl.classList.add("gone");
+  tableau.classList.remove("in");
+  later(gateCloses, 1900);
+  later(function(){
+    finalEl.innerHTML = "You were there <b>" + S.years + "</b> years. The gate was never locked.";
+    finalEl.classList.add("in");
+    later(function(){ againEl.classList.add("in"); homeEl.classList.add("in"); thanksEl.classList.add("in"); }, 5000);
+  }, 7500);
+}
+
+/* -------------------------------------------------------------- *
+ *  The one sound in the piece.
+ * -------------------------------------------------------------- */
+var actx = null;
+function unlockAudio(){
+  if (actx) return;
+  try {
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (AC) actx = new AC();
+  } catch(e){ actx = null; }
+}
+
+function gateCloses(){
+  if (!actx) return;
+  try {
+    if (actx.state === "suspended") actx.resume();
+    var t = actx.currentTime;
+
+    /* stone travelling */
+    var dur = 2.4;
+    var buf = actx.createBuffer(1, Math.floor(actx.sampleRate * dur), actx.sampleRate);
+    var d = buf.getChannelData(0);
+    for (var i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    var src = actx.createBufferSource(); src.buffer = buf;
+    var lp = actx.createBiquadFilter(); lp.type = "lowpass";
+    lp.frequency.setValueAtTime(760, t);
+    lp.frequency.exponentialRampToValueAtTime(85, t + 1.9);
+    var g = actx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(0.20, t + 0.35);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 2.2);
+    src.connect(lp).connect(g).connect(actx.destination);
+    src.start(t); src.stop(t + dur);
+
+    /* the shut */
+    var o = actx.createOscillator(); o.type = "sine";
+    o.frequency.setValueAtTime(84, t + 1.6);
+    o.frequency.exponentialRampToValueAtTime(34, t + 2.6);
+    var og = actx.createGain();
+    og.gain.setValueAtTime(0.0001, t + 1.6);
+    og.gain.exponentialRampToValueAtTime(0.55, t + 1.68);
+    og.gain.exponentialRampToValueAtTime(0.0001, t + 3.2);
+    o.connect(og).connect(actx.destination);
+    o.start(t + 1.58); o.stop(t + 3.3);
+  } catch(e){}
+}
+
+/* -------------------------------------------------------------- *
+ *  Open / restart
+ * -------------------------------------------------------------- */
+function opening(){
+  reset();
+  updateYears();
+  tableau.classList.add("in");
+  later(function(){
+    reveal(T.open, function(){ showChoices(); S.busy = false; });
+  }, 2500);
+}
+
+againEl.addEventListener("click", function(){
+  againEl.classList.remove("in");
+  homeEl.classList.remove("in");
+  thanksEl.classList.remove("in");
+  finalEl.classList.remove("in");
+  clearTimers();
+  setTimeout(function(){
+    document.body.classList.remove("old");
+    textEl.innerHTML = "";
+    textEl.classList.remove("out");
+    choices.innerHTML = "";
+    choices.classList.remove("in");
+    finalEl.innerHTML = "";
+    yearsEl.classList.remove("gone");
+    black.classList.remove("on");
+    setTimeout(opening, 2100);
+  }, 1500);
+});
+
+opening();
+
+})();
+</script>
+</body>
+</html>
