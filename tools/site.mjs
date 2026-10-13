@@ -5,9 +5,9 @@
    If the site moves, change SITE here and run `node package.mjs`. */
 
 /* the public address of dist/, with a trailing slash */
-export const SITE = 'https://vikasgoyankain.github.io/before-the-law/';
+export const SITE = 'https://vikasgoyankain.github.io/playable-readings/';
 /* the whole published site as one zip: GitHub makes it from the gh-pages branch */
-export const ZIP = 'https://github.com/VikasGoyankain/before-the-law/archive/refs/heads/gh-pages.zip';
+export const ZIP = 'https://github.com/VikasGoyankain/playable-readings/archive/refs/heads/gh-pages.zip';
 export const SITE_NAME = 'Playable Readings';
 export const TAGLINE = 'Feel Kafka. Don’t just read him.';
 export const AUTHOR = 'Vikas Goyanka';

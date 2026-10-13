@@ -5,7 +5,7 @@ into games that a class can play in one period. This folder is the whole
 published site. It can be opened straight from a disk, copied to a USB stick,
 or put on any web host.
 
-Live address: https://vikasgoyankain.github.io/before-the-law/
+Live address: https://vikasgoyankain.github.io/playable-readings/
 
 Developed by Vikas Goyanka, LLB26057, National Law University, Delhi, in honour of Prof. (Dr.) Prasannanshu.
 
@@ -182,7 +182,7 @@ and `llms.txt` all contain the site's full address. It is set in one place,
 - `llms.txt`, which tells AI assistants in plain words what the project is
   for and when it is useful to a student or teacher.
 
-After publishing, submit `https://vikasgoyankain.github.io/before-the-law/sitemap.xml` in Google Search Console to
+After publishing, submit `https://vikasgoyankain.github.io/playable-readings/sitemap.xml` in Google Search Console to
 have the pages indexed sooner.
 
 ## Privacy
