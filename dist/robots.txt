@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://vikasgoyankain.github.io/before-the-law/sitemap.xml
+Sitemap: https://vikasgoyankain.github.io/playable-readings/sitemap.xml

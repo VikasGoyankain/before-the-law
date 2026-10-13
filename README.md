@@ -9,7 +9,7 @@ lived stays in the person.
 
 - **Play it:** open [`dist/index.html`](dist/index.html) in a browser. No
   server, no installation, no internet connection.
-- **Published site:** https://vikasgoyankain.github.io/before-the-law/
+- **Published site:** https://vikasgoyankain.github.io/playable-readings/
 - **For teachers:** [`dist/for-teachers.html`](dist/for-teachers.html) has a
   lesson plan for one period, discussion questions, and notes for a classroom
   digital board.
