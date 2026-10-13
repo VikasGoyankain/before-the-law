@@ -7,7 +7,7 @@ const b = await puppeteer.launch({ headless: true,
   args: ['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--enable-webgl',
          '--autoplay-policy=no-user-gesture-required','--mute-audio'] });
 
-for (const f of ['index.html', 'text-only.html']) {
+for (const f of ['index.html', 'for-teachers.html', 'before-the-law.html', 'before-the-law-text.html', 'imperial-message.html', 'imperial-message-text.html']) {
   const page = await b.newPage();
   const external = [], errs = [];
   page.on('request', r => { const u = r.url(); if (!u.startsWith('file:') && !u.startsWith('data:') && !u.startsWith('blob:')) external.push(u); });
@@ -20,8 +20,9 @@ for (const f of ['index.html', 'text-only.html']) {
     title: document.title,
     choices: document.querySelectorAll('#choices button').length,
     canvas: !!document.querySelector('#view canvas'),
+    links: [...document.querySelectorAll('a[href]')].map(a => a.getAttribute('href')).filter(h => !/^(#|https?:)/.test(h)).join(' '),
   }));
-  console.log(`${f.padEnd(15)} title=${JSON.stringify(ok.title)} choices=${ok.choices} canvas=${ok.canvas}`);
+  console.log(`${f.padEnd(15)} title=${JSON.stringify(ok.title)} choices=${ok.choices} canvas=${ok.canvas}${ok.links ? " links=" + ok.links : ""}`);
   console.log(`  external network requests: ${external.length}${external.length ? ' -> ' + external.join(', ') : '  (none)'}`);
   console.log(`  errors: ${errs.length ? errs.join(' | ') : 'none'}`);
   await page.close();

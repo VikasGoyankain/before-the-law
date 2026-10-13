@@ -4,7 +4,30 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="dark">
-<title>Before the Law</title>
+<title>Before the Law, text-only: Kafka’s parable as interactive fiction</title>
+<meta name="description" content="The text-only version of the playable “Before the Law”: the same choices and the same years, without 3D or narration. It runs on any device, however old.">
+<meta name="author" content="Vikas Goyanka">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#0a090b">
+<link rel="canonical" href="https://vikasgoyankain.github.io/before-the-law/before-the-law-text.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Playable Readings">
+<meta property="og:locale" content="en_IN">
+<meta property="og:title" content="Before the Law, text-only: Kafka’s parable as interactive fiction">
+<meta property="og:description" content="The text-only version of the playable “Before the Law”: the same choices and the same years, without 3D or narration. It runs on any device, however old.">
+<meta property="og:url" content="https://vikasgoyankain.github.io/before-the-law/before-the-law-text.html">
+<meta property="og:image" content="https://vikasgoyankain.github.io/before-the-law/og-before-the-law.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Before the Law: a lit gateway, a doorkeeper, and a man waiting.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Before the Law, text-only: Kafka’s parable as interactive fiction">
+<meta name="twitter:description" content="The text-only version of the playable “Before the Law”: the same choices and the same years, without 3D or narration. It runs on any device, however old.">
+<meta name="twitter:image" content="https://vikasgoyankain.github.io/before-the-law/og-before-the-law.jpg">
+<meta name="twitter:image:alt" content="Before the Law: a lit gateway, a doorkeeper, and a man waiting.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2213%22%20fill%3D%22%230a090b%22%2F%3E%3Cpath%20d%3D%22M21%2055V28a11%2011%200%200%201%2022%200v27z%22%20fill%3D%22%23ffd690%22%20fill-opacity%3D%22.55%22%2F%3E%3Cpath%20d%3D%22M17%2055V28a15%2015%200%200%201%2030%200v27%22%20fill%3D%22none%22%20stroke%3D%22%23e8bd6a%22%20stroke-width%3D%224.5%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":["VideoGame","LearningResource"],"@id":"https://vikasgoyankain.github.io/before-the-law/before-the-law-text.html#game","name":"Before the Law (text-only)","url":"https://vikasgoyankain.github.io/before-the-law/before-the-law-text.html","description":"Play Kafka’s “Before the Law” from the inside: you are the man from the country, the gate stands open, and every choice costs years. A free, narrated 3D game for the classroom, about fifteen minutes.","inLanguage":"en","author":{"@type":"Person","name":"Vikas Goyanka","affiliation":{"@type":"CollegeOrUniversity","name":"National Law University, Delhi"}},"isAccessibleForFree":true,"isBasedOn":{"@type":"CreativeWork","name":"Before the Law","alternateName":"Vor dem Gesetz","datePublished":"1915","inLanguage":"de","author":{"@type":"Person","name":"Franz Kafka"}},"about":{"@type":"CreativeWork","name":"Before the Law","alternateName":"Vor dem Gesetz","datePublished":"1915","inLanguage":"de","author":{"@type":"Person","name":"Franz Kafka"}},"genre":["Interactive fiction","Educational game"],"gamePlatform":"Web browser","applicationCategory":"Game","operatingSystem":"Any","playMode":"SinglePlayer","timeRequired":"PT15M","learningResourceType":"Interactive game","educationalUse":["Classroom activity","Discussion","Self study"],"educationalLevel":["Senior secondary","Undergraduate"],"audience":{"@type":"EducationalAudience","educationalRole":["student","teacher"]},"teaches":"Close reading and interpretation of Franz Kafka’s parable, experienced first-hand","image":"https://vikasgoyankain.github.io/before-the-law/og-before-the-law.jpg","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"}}]}</script>
 <style>
 :root{
   --bg:#0a0908;
@@ -194,13 +217,98 @@ body.old #years{color:#3e3c38;}
 }
 #again.in{opacity:1;pointer-events:auto;}
 #again:hover,#again:focus-visible{color:#6b6459;}
+#home{
+  position:fixed; bottom:1.25rem; left:1.35rem;
+  z-index:5;
+  font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:.66rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  text-decoration:none;
+  color:#a08a5c;
+  padding:.5rem;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 2000ms ease,color 500ms ease;
+}
+#home.in{opacity:1;pointer-events:auto;}
+#home:hover,#home:focus-visible{color:#e8bd6a;}
+#black{align-content:center;gap:2.6rem;}
+
+/* the acknowledgement, after the ending */
+#thanks{max-width:33rem;margin:0;padding-top:1.6rem;border-top:1px solid rgba(232,189,106,.24);text-align:center;color:#a89e8e;
+  font-size:.95rem;line-height:1.7;text-wrap:pretty;opacity:0;transition:opacity 2600ms ease 1200ms;}
+#thanks.in{opacity:1;}
+#thanks p{margin:0;}
+#thanks b{font-weight:normal;color:#e8bd6a;}
+#thanks .tk{margin-bottom:.9rem;font:.64rem/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#a08a5c;}
+#thanks .ts{margin-top:.9rem;font:.64rem/1.6 ui-sans-serif,system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#6b6459;}
+
 
 @media (max-width:400px){
   #stage{padding:0 1.15rem;}
   #choices{min-height:11.5rem;}
   #choices button{font-size:.72rem;letter-spacing:.13em;}
 }
+
+/* classroom board */
+html.board{font-size:clamp(20px,1.25vw,44px)}
+html.board body{font-size:1rem}
+[data-fs]{display:none!important}
+html.board [data-fs]{display:inline-block!important}
+@media (max-width:1100px){html:not(.board) [data-board]{display:none!important}}
+.board-corner{position:fixed;top:.5rem;left:.6rem;z-index:6;display:flex;gap:.2rem}
+.board-corner button{border:0;background:none;cursor:pointer;padding:.6rem .5rem;min-height:2.4rem;
+ font:.62rem/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#5a534a}
+.board-corner button:hover,.board-corner button:focus-visible{color:#b9ae9c}
+html.board .board-corner button{color:#8d8475}
 </style>
+<script>(function(){
+var d=document,r=d.documentElement,q=/[?&]board=([01])/.exec(location.search),s=null,on;
+try{s=localStorage.getItem('board')}catch(e){}
+on=q?q[1]==='1':s!==null?s==='1':(Math.max(screen.width||0,window.innerWidth||0)>=1600&&navigator.maxTouchPoints>0);
+function keep(){try{localStorage.setItem('board',on?'1':'0')}catch(e){}}
+if(q)keep();
+r.classList.toggle('board',on);
+function fs(){return d.fullscreenElement||d.webkitFullscreenElement}
+function paint(){
+  var i,h,m,l=d.querySelectorAll('[data-board]');
+  r.classList.toggle('board',on);
+  for(i=0;i<l.length;i++){l[i].textContent=l[i].getAttribute('data-board')+(on?': on':': off');l[i].setAttribute('aria-pressed',on?'true':'false')}
+  l=d.querySelectorAll('[data-fs]');
+  for(i=0;i<l.length;i++)l[i].textContent=fs()?'Exit full screen':'Full screen';
+  l=d.querySelectorAll('a[href]');
+  for(i=0;i<l.length;i++){h=l[i].getAttribute('href');m=/^([a-z-]+[.]html)([?][^#]*)?(#.*)?$/.exec(h);
+    if(m)l[i].setAttribute('href',m[1]+(on?'?board=1':'')+(m[3]||''))}
+}
+function btn(label,attr,cls){var b=d.createElement('button');b.type='button';b.setAttribute(attr,label);if(cls)b.className=cls;return b}
+function ready(){
+  var set=d.getElementById('settings'),slot=d.querySelector('[data-board-slot]'),card,c;
+  var canFs=r.requestFullscreen||r.webkitRequestFullscreen;
+  if(set){
+    set.appendChild(btn('Board','data-board'));if(canFs)set.appendChild(btn('','data-fs'));
+    card=d.querySelector('#intro .links')||d.querySelector('#intro .card');
+    if(card)card.appendChild(btn('Classroom board','data-board','quiet'));
+  }else if(slot){
+    slot.appendChild(btn('Classroom board','data-board'));if(canFs)slot.appendChild(btn('','data-fs'));
+  }else{
+    c=d.createElement('div');c.className='board-corner';
+    c.appendChild(btn('Classroom board','data-board'));if(canFs)c.appendChild(btn('','data-fs'));
+    d.body.appendChild(c);
+  }
+  d.addEventListener('click',function(e){
+    var t=e.target.closest?e.target.closest('[data-board],[data-fs]'):null,p;
+    if(!t)return;
+    if(t.hasAttribute('data-board')){on=!on;keep()}
+    else if(fs()){(d.exitFullscreen||d.webkitExitFullscreen).call(d)}
+    else{p=(r.requestFullscreen||r.webkitRequestFullscreen).call(r);if(p&&p.catch)p.catch(function(){})}
+    paint();
+  });
+  d.addEventListener('fullscreenchange',paint);d.addEventListener('webkitfullscreenchange',paint);
+  paint();
+}
+if(d.readyState==='loading')d.addEventListener('DOMContentLoaded',ready);else ready();
+})();</script>
 </head>
 <body>
 
@@ -214,7 +322,13 @@ body.old #years{color:#3e3c38;}
 
 <div id="years" aria-hidden="true">0 years</div>
 
-<div id="black"><p id="final"></p></div>
+<div id="black"><p id="final"></p>
+  <aside id="thanks" aria-label="Acknowledgement">
+    <p class="tk">With gratitude</p>
+    <p>The idea of making this game came to me from the teaching of <b>Prof. (Dr.) Prasannanshu</b>, who asks his students to be creative, and to answer a work of literature by making something of their own.</p>
+    <p class="ts">Vikas Goyanka &#183; LLB26057 &#183; National Law University, Delhi</p>
+  </aside></div>
+<a id="home" href="index.html">Home page</a>
 <button id="again" type="button">Begin again</button>
 
 <script>
@@ -225,6 +339,25 @@ body.old #years{color:#3e3c38;}
  *  Text: an original English adaptation of Kafka's Vor dem Gesetz.
  * -------------------------------------------------------------- */
 var T = {
+
+  prologue: [
+    [
+      "In a village far from the city, people speak of the Law.",
+      "No one there can tell you exactly what it is. Only that it is in the city, behind a gate, and that it is meant for everyone."
+    ],
+    [
+      "You are a man from the country. All your life you have wondered about it.",
+      "One morning you decide that you will go, and ask to be let in."
+    ],
+    [
+      "You pack everything that might be of use on the way.",
+      "The money for the journey home. Your good coat. Your father&#8217;s watch. Letters of recommendation. Bread. A walking stick."
+    ],
+    [
+      "You walk for many days, until the road is empty and the villages have stopped.",
+      "And then, in the dark, you see it: a gate standing on its own, wide open. And in front of it, a man."
+    ]
+  ],
 
   open: [
     "You have travelled a long way to reach him. Behind him the gate stands open, as it always does, and beyond it you can see nothing at all."
@@ -276,6 +409,48 @@ var T = {
     [
       "You have been told what waits inside. You have never seen it. Both of these remain true, and you sit back down."
     ]
+  ],
+
+  s2stool: [
+    "The doorkeeper gives you a little stool and lets you sit down at the side of the gate. You sit there for days and years."
+  ],
+
+  gifts: [
+    { id: "purse",   label: "The money for the journey home", line: "You give him the money you had kept for the journey home." },
+    { id: "coat",    label: "Your good coat",                 line: "You take off your good coat, the one you wore so as to look respectable before the law, and hand it to him." },
+    { id: "watch",   label: "Your father&#8217;s watch",      line: "You give him your father&#8217;s watch. It is still running." },
+    { id: "letters", label: "Your letters of recommendation", line: "You give him the letters that were meant to open doors for you." },
+    { id: "bread",   label: "The last of your bread",         line: "You give him the last of your bread." },
+    { id: "stick",   label: "Your walking stick",             line: "You give him your walking stick. You will not be needing it to walk anywhere." }
+  ],
+
+  s2offerAgain: [
+    "He takes it as carefully as the first thing. &#8220;Only so that you do not feel you have left something untried.&#8221;"
+  ],
+
+  s2offerNone: [
+    "You search your bundle and find nothing left in it.",
+    "He waits, politely, as though you might yet produce something."
+  ],
+
+  curse: [
+    "You curse your fate aloud, so loudly that it rings back to you out of the hall.",
+    "The doorkeeper waits until you have finished."
+  ],
+
+  grumble: [
+    "You no longer curse your fate aloud. You only grumble to yourself, and even that has become a habit."
+  ],
+
+  remember: [
+    ["You think of the village. You can still see all of it: the church, the smoke from the chimneys, your own door."],
+    ["You try to picture your house again, and find you are no longer sure which side of the road it stood on."],
+    ["You think of home. There is no one left there now who would know your face."]
+  ],
+
+  mark: [
+    ["You begin to scratch a mark into the stone for every year that passes."],
+    ["The marks have spread across the stone like a small field. You no longer count them. You only add to them."]
   ],
 
   s3: [
@@ -333,6 +508,7 @@ var yearsEl = document.getElementById("years");
 var black   = document.getElementById("black");
 var finalEl = document.getElementById("final");
 var againEl = document.getElementById("again");
+var homeEl = document.getElementById("home"), thanksEl = document.getElementById("thanks");
 
 var timers = [];
 function later(fn, ms){ var t = setTimeout(fn, ms); timers.push(t); return t; }
@@ -477,7 +653,7 @@ function blackout(){
   later(function(){
     finalEl.innerHTML = "You were there <b>" + S.years + "</b> years. The gate was never locked.";
     finalEl.classList.add("in");
-    later(function(){ againEl.classList.add("in"); }, 5000);
+    later(function(){ againEl.classList.add("in"); homeEl.classList.add("in"); thanksEl.classList.add("in"); }, 5000);
   }, 7500);
 }
 
@@ -542,6 +718,8 @@ function opening(){
 
 againEl.addEventListener("click", function(){
   againEl.classList.remove("in");
+  homeEl.classList.remove("in");
+  thanksEl.classList.remove("in");
   finalEl.classList.remove("in");
   clearTimers();
   setTimeout(function(){

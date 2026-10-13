@@ -1,0 +1,5 @@
+# Playable Readings: everything here may be crawled and indexed.
+User-agent: *
+Allow: /
+
+Sitemap: https://vikasgoyankain.github.io/before-the-law/sitemap.xml

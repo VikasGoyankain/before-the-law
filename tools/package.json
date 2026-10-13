@@ -1,1 +1,1 @@
-{"name":"btl-asset-tools","private":true,"type":"module","version":"1.0.0","dependencies":{"esbuild":"^0.28.2","howler":"^2.2.4","lamejs":"^1.2.1","puppeteer":"^25.9.0","sharp":"^0.35.4","three":"^0.185.1"}}
+{"name":"btl-asset-tools","private":true,"type":"module","version":"1.0.0","dependencies":{"esbuild":"^0.28.2","howler":"^2.2.4","lamejs":"^1.2.1","puppeteer":"^25.9.0","sharp":"^0.35.4","three":"^0.185.1"},"devDependencies":{"@gltf-transform/core":"^4.5.1","@gltf-transform/functions":"^4.5.1","kokoro-js":"^1.2.1","meshoptimizer":"^1.3.0"}}

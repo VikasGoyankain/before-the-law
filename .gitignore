@@ -6,3 +6,14 @@ tools/node_modules/
 tools/*.png
 tools/sheet.svg
 tools/.tmp-tex/
+tools/.*.log
+tools/.viewer/
+tools/.voice-test/
+
+# Raw downloads from the AI modelling tools: large, and their licence depends
+# on the plan they were made under (see assets/LICENSES.md). The build reads
+# only the prepared copies in assets/models/game/ and assets/models/im/game/.
+assets/models/*.glb
+assets/models/*.zip
+assets/models/for-mixamo/
+assets/models/im/*.glb
