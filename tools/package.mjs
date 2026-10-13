@@ -1,65 +1,68 @@
-/* Builds dist/ — the submission and hosting deliverable.
-   One folder serves both purposes: GitHub Pages serves it as-is, and zipping
-   it gives the email version. That only works because every asset is inlined,
-   so there are no relative paths to break. */
+/* Builds dist/, the published site and the hand-in folder in one.
+   GitHub Pages serves it as it is, and zipping it gives the version to email
+   or carry on a USB stick. That works because each game page has every asset
+   inlined, so there are no paths to break.
+
+   What it adds to the built pages on the way:
+     - each page's title, description, canonical address, share-preview tags,
+       icon and structured data (tools/site.mjs);
+     - classroom-board mode for the two hand-written text-only pages
+       (tools/board.mjs; the other pages are built with it);
+     - README.md, llms.txt, robots.txt, sitemap.xml and 404.html (tools/docs.mjs).
+   Usage: node package.mjs */
 import fs from 'fs';
 import path from 'path';
+import { withHead } from './site.mjs';
+import { withBoard } from './board.mjs';
+import { README, LLMS, ROBOTS, NOT_FOUND, sitemap } from './docs.mjs';
 
 const DIST = '../dist';
 fs.rmSync(DIST, { recursive: true, force: true });
 fs.mkdirSync(DIST, { recursive: true });
 
-const copy = (from, to) => {
-  fs.copyFileSync(from, path.join(DIST, to));
-  return fs.statSync(path.join(DIST, to)).size;
-};
-
 const sizes = {};
-sizes['index.html'] = copy('../before-the-law-3d.html', 'index.html');
-sizes['text-only.html'] = copy('../before-the-law.html', 'text-only.html');
-sizes['LICENSES.md'] = copy('../assets/LICENSES.md', 'LICENSES.md');
+const put = (name, data) => {
+  fs.writeFileSync(path.join(DIST, name), data);
+  sizes[name] = fs.statSync(path.join(DIST, name)).size;
+};
+const copy = (from, name) => put(name, fs.readFileSync(from));
 
-fs.writeFileSync(path.join(DIST, 'README.md'), `# Before the Law
+/* the site's own pages, built here with their head tags already in place */
+const { HUB } = await import('./hub.mjs');
+const { TEACHERS } = await import('./teachers.mjs');
+put('index.html', HUB);
+put('for-teachers.html', TEACHERS);
 
-An interactive adaptation of Kafka's parable.
+/* the games: two built 3D pages, and the two hand-written text-only pages */
+const game = (from, name, text) => {
+  let html = withHead(fs.readFileSync(from, 'utf8'), name);
+  if (text) html = withBoard(html);
+  put(name, html);
+};
+game('../before-the-law-3d.html', 'before-the-law.html');
+game('../before-the-law.html', 'before-the-law-text.html', true);
+game('../imperial-message-3d.html', 'imperial-message.html');
+game('../imperial-message.html', 'imperial-message-text.html', true);
 
-## To play
+/* share-preview pictures and icon files, made by make-social.mjs */
+const SOCIAL = '../assets/social';
+for (const f of ['og-image.jpg', 'og-before-the-law.jpg', 'og-imperial-message.jpg', 'favicon.png', 'apple-touch-icon.png']) {
+  if (!fs.existsSync(path.join(SOCIAL, f))) throw new Error('missing ' + SOCIAL + '/' + f + ': run node make-social.mjs first');
+  copy(path.join(SOCIAL, f), f);
+}
 
-**Open \`index.html\`.** Double-click it — no server, no install, no network
-connection. Everything it needs is inside that one file.
-
-\`text-only.html\` is the same piece without the 3D scene. It needs no WebGL and
-loads in 17 KB, so it is the fallback for old devices, low bandwidth, or anywhere
-the 3D version will not run.
-
-## To host it
-
-Copy this folder to any static host. For **GitHub Pages**: put these files in
-\`/docs\` on the default branch (or the root of a \`gh-pages\` branch) and enable
-Pages in repository settings. No build step, no CI, no configuration.
-
-There is nothing to configure because there is nothing to fetch: the page makes
-**zero network requests**. Textures, audio, geometry, and the engine are all
-inlined. It works offline and from a \`file://\` URL.
-
-## Debug
-
-Append \`?debug=fps\` to the URL for an on-screen frame-rate readout — frames per
-second, resolution, device pixel ratio, and whether the mobile low-detail path is
-active. It is hidden otherwise.
-
-## Licensing
-
-See \`LICENSES.md\`. Everything is CC0 or original except two MIT libraries
-(three.js and howler.js), whose notices are retained inside \`index.html\`.
-Nothing here carries an attribution-tracking obligation.
-`);
-sizes['README.md'] = fs.statSync(path.join(DIST, 'README.md')).size;
+copy('../assets/LICENSES.md', 'LICENSES.md');
+put('llms.txt', LLMS);
+put('robots.txt', ROBOTS);
+put('sitemap.xml', sitemap());
+put('404.html', NOT_FOUND);
+put('.nojekyll', '');
+put('README.md', README(sizes));
 
 const total = Object.values(sizes).reduce((a, b) => a + b, 0);
 console.log('dist/');
 for (const [f, s] of Object.entries(sizes)) {
-  console.log('  ' + f.padEnd(16) + (s / 1024).toFixed(0).padStart(6) + ' KB');
+  console.log('  ' + f.padEnd(28) + (s / 1024).toFixed(0).padStart(6) + ' KB');
 }
-console.log('  ' + '-'.repeat(22));
-console.log('  ' + 'total'.padEnd(16) + (total / 1048576).toFixed(2).padStart(6) + ' MB');
+console.log('  ' + '-'.repeat(34));
+console.log('  ' + 'total'.padEnd(28) + (total / 1048576).toFixed(2).padStart(6) + ' MB');

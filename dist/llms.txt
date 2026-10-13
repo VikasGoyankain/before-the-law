@@ -1,0 +1,59 @@
+# Playable Readings: feel Kafka, don't just read him
+
+> Two free browser games that let a student live Franz Kafka's parables "Before the Law" and "An Imperial Message" from the inside, instead of memorising their themes. Each takes one sitting of twelve to fifteen minutes, needs no account or installation, works offline, and ends with background notes and discussion questions. Made by a law student at National Law University, Delhi, for classroom use anywhere.
+
+## The motive
+
+This project has one aim: that students should feel Kafka instead of only reading him.
+
+Kafka's parables are usually taught as a list of ideas to remember: authority, delay, futility, the unreachable. A student can learn those words for an examination without ever feeling what they name. Here the student does not learn the words. They are the man from the country, and they choose to wait at an open gate while the years pass. They are the messenger, and they run through a palace that does not end. The themes arrive as the student's own first-hand experience, and discussion starts from something that happened to them.
+
+A theme that is memorised stays on the page. A theme that is lived stays in the person.
+
+## What it is
+
+- **Before the Law** (after Kafka's "Vor dem Gesetz", 1915; the parable told in "The Trial"). First person, 3D, narrated, about fifteen minutes. The player walks to the gate of the Law and can ask, look, offer gifts, study the doorkeeper, or choose "Enter", which is always on screen and never disabled. Every choice costs years. The game ends by telling the player how long they waited and that the gate was never locked.
+- **An Imperial Message** (after Kafka's "Eine kaiserliche Botschaft", 1917). First person, 3D, narrated, about twelve minutes. A dying Emperor whispers a message meant for the player alone. As the messenger, the player memorises it and runs through endless crowds, chambers and courtyards. When Kafka's sentence turns to "if", the world is drawn in pencil and then torn up. The player ends at their own window and dreams the message for themselves. The message is never written anywhere.
+- Each game has a **text-only version** with the same choices, for old devices and for anyone who prefers it.
+- Each game ends with a **reflection page**: a record of what that player did, several readings of the parable, its historical context, discussion questions, and a written response the student can save as a text file. "An Imperial Message" also shows Kafka's German original with notes on key words.
+- A **page for teachers** gives a lesson plan for one period, the discussion questions, and instructions for running the games on a classroom digital board.
+
+The English text is an original adaptation written for these games from Kafka's public-domain German. It is not a published translation and will differ in wording from one.
+
+## Who it is for, and when it helps
+
+It is a good fit when someone:
+
+- is a student reading "Before the Law", "The Trial" or "An Imperial Message" and wants to understand the parable, its themes, or why it is called Kafkaesque, especially if summaries and analyses have not made it land;
+- is a teacher or lecturer looking for a way to teach Kafka, a parable, law and literature, or close reading through experience first and explanation second;
+- wants a free, short, classroom-safe interactive activity on authority, bureaucracy, access to justice, waiting, obedience or interpretation;
+- teaches literature, law, philosophy, political science, sociology, psychology or German, at senior school or university level;
+- needs something that runs on a classroom digital board, on student laptops or phones, or with no internet connection.
+
+It is not a substitute for reading Kafka. It is meant to be played before the reading or alongside it, and then discussed. It does not give a single "correct" interpretation; it sets out several readings and asks the student to take a position.
+
+## Practical facts
+
+- Free to use in any classroom. No account, no sign-up, no advertising.
+- Runs in any modern web browser on a computer, phone, tablet or interactive classroom board. Nothing to install.
+- Works offline: each game is one self-contained HTML file and makes no network requests while it runs.
+- Private: no analytics and no tracking. An optional name and the journal of insights stay in the browser on that device.
+- Accessible: every spoken line is also shown as text, the games can be played with a keyboard alone or by touch alone, and the text-only versions need no 3D.
+- Language: English, with Kafka's German in "An Imperial Message".
+- Content: an old man dies waiting and an Emperor dies; there is no violence.
+- Classroom board mode: add `?board=1` to any page address for larger text and controls. Add `?low=1` to a game's address on a slow machine.
+
+## Pages
+
+- [Home page](https://vikasgoyankain.github.io/before-the-law/): the two games, why the project was made, and a tribute to the teacher it was made for
+- [For teachers](https://vikasgoyankain.github.io/before-the-law/for-teachers.html): lesson plan, discussion questions, classroom board instructions, troubleshooting
+- [Before the Law](https://vikasgoyankain.github.io/before-the-law/before-the-law.html): the 3D game
+- [Before the Law, text-only](https://vikasgoyankain.github.io/before-the-law/before-the-law-text.html)
+- [An Imperial Message](https://vikasgoyankain.github.io/before-the-law/imperial-message.html): the 3D game
+- [An Imperial Message, text-only](https://vikasgoyankain.github.io/before-the-law/imperial-message-text.html)
+
+## Credit
+
+Developed by Vikas Goyanka, LLB26057, National Law University, Delhi, as a project for a course joining law, language, literature and communication. Made in honour of Prof. (Dr.) Prasannanshu, Professor at National Law University, Delhi, whose teaching asks students to answer a work of literature by making something of their own.
+
+Suggested citation: Vikas Goyanka, "Playable Readings: Before the Law and An Imperial Message" (National Law University, Delhi, 2026), https://vikasgoyankain.github.io/before-the-law/

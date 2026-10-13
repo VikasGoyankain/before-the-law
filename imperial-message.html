@@ -1,0 +1,726 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>An Imperial Message</title>
+<style>
+:root{
+  --bg:#0b0a0c;
+  --ink:#d2c8b8;
+  --dim:#6d665c;
+  --faint:#312d2a;
+  --gold:#e3b866;
+  --paper:#e9e2d3;
+}
+*{box-sizing:border-box;}
+[hidden]{display:none!important;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:Georgia,"Iowan Old Style","Palatino Linotype",Palatino,"Times New Roman",serif;
+  font-size:clamp(1rem,0.94rem + 0.45vw,1.15rem);line-height:1.75;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  transition:background-color 3s linear,color 3s linear;
+}
+/* the palace is warm; the window is cold */
+body.palace{--bg:#120a08;}
+body.window{--bg:#080a12;--ink:#c9cdd8;--dim:#5d6372;--faint:#262a36;}
+
+#stage{position:relative;z-index:1;display:grid;grid-template-rows:auto minmax(0,1fr) auto;
+  height:100vh;height:100dvh;max-width:36rem;margin:0 auto;padding:0 1.5rem;}
+#tableau{padding-top:clamp(3rem,8vh,5rem);text-align:center;font-style:italic;color:var(--dim);font-size:.94em;
+  min-height:2em;transition:opacity 1.6s ease;}
+#count{position:fixed;top:1.1rem;right:1.25rem;z-index:3;font:.68rem/1 ui-sans-serif,system-ui,sans-serif;
+  letter-spacing:.14em;text-transform:uppercase;color:#5a534a;}
+#text{align-self:center;max-height:100%;overflow-y:auto;padding:2rem 0;transition:opacity 1.2s ease;scrollbar-width:none;}
+#text.out{opacity:0;}
+.line{margin:0 0 1.2em;opacity:0;transition:opacity 1.1s ease,color 2s ease,filter 2s ease;text-wrap:pretty;}
+.line.in{opacity:1;}
+.line:last-child{margin-bottom:0;}
+
+/* "if": the story's subjunctive, drawn paler the further it goes */
+.line.if1{color:#a8a092;font-style:italic;}
+.line.if2{color:#8e877b;font-style:italic;}
+.line.if3{color:#757067;font-style:italic;letter-spacing:.01em;}
+.line.if4{color:#5f5b55;font-style:italic;letter-spacing:.02em;}
+.line.never{color:var(--ink);font-style:normal;font-weight:bold;}
+.line.struck{text-decoration:line-through;text-decoration-color:rgba(210,200,184,.55);opacity:.28;}
+
+#choices{display:flex;flex-direction:column;justify-content:flex-end;min-height:12.5rem;
+  padding-bottom:calc(clamp(2.5rem,7vh,4.5rem) + env(safe-area-inset-bottom,0px));opacity:0;transition:opacity .8s ease;}
+#choices.in{opacity:1;}
+#choices:not(.in) button{pointer-events:none;}
+#choices button{display:block;width:100%;margin:0;padding:.85rem .1rem;text-align:left;background:none;border:0;
+  border-top:1px solid var(--faint);color:var(--dim);
+  font:.76rem/1.4 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  letter-spacing:.16em;text-transform:uppercase;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent;
+  transition:color .5s ease;}
+#choices button:last-child{border-bottom:1px solid var(--faint);}
+#choices button:hover,#choices button:focus-visible{color:var(--ink);}
+#choices button:focus-visible{outline:1px solid var(--dim);outline-offset:4px;}
+#choices button.main{color:var(--gold);}
+#choices button.main:hover{color:#ffe2a8;}
+
+/* glyphs: the message, which is never in words */
+.glyphs{display:flex;gap:.9rem;justify-content:center;margin:1.6rem 0 0;font-size:2rem;min-height:3rem;color:var(--gold);}
+.glyphs span{opacity:0;transition:opacity .5s ease;text-shadow:0 0 18px rgba(227,184,102,.5);}
+.glyphs span.in{opacity:1;}
+.pad{display:grid;grid-template-columns:repeat(6,1fr);gap:.4rem;margin-bottom:.8rem;}
+.pad button{border:1px solid var(--faint)!important;text-align:center!important;font-size:1.5rem!important;
+  letter-spacing:0!important;color:var(--gold)!important;padding:.6rem 0!important;}
+.pad button:hover{border-color:var(--dim)!important;}
+.said{display:flex;gap:.6rem;justify-content:center;min-height:2.2rem;font-size:1.4rem;color:var(--gold);margin-bottom:.6rem;}
+
+/* title */
+#intro{position:fixed;inset:0;z-index:6;display:grid;place-items:center;padding:1.5rem;background:var(--bg);transition:opacity 1.2s ease;}
+#intro.gone{opacity:0;pointer-events:none;}
+#intro .card{max-width:30rem;text-align:center;}
+.kicker{margin:0 0 1rem;font:.68rem/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);}
+h1{margin:0 0 1.2rem;font-weight:normal;font-size:clamp(2rem,6vw,3rem);color:#e2d6c2;line-height:1.1;}
+.role{margin:0 auto 2rem;max-width:25rem;font-style:italic;color:#a59c8d;}
+label.name{display:block;font:.66rem/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-bottom:.6rem;}
+input#name{width:min(18rem,100%);background:transparent;border:0;border-bottom:1px solid #4d4842;color:#e6dccb;
+  font:inherit;font-size:1.15rem;text-align:center;padding:.4rem;margin-bottom:2rem;}
+input#name:focus{outline:0;border-color:var(--gold);}
+#begin{border:1px solid #4d4842;background:none;color:#ddd3c1;padding:1rem 2.6rem;min-height:48px;cursor:pointer;
+  font:.74rem/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:.22em;text-transform:uppercase;border-radius:2px;}
+#begin:hover,#begin:focus-visible{border-color:var(--gold);}
+.meta{margin:2rem 0 0;font:.7rem/1.7 ui-sans-serif,system-ui,sans-serif;color:#5f594f;}
+.meta a{color:#8d8475;}
+
+/* seal */
+.seal{display:grid;place-items:center;width:6.5rem;height:6.5rem;margin:1.2rem auto 0;border-radius:50%;
+  background:radial-gradient(circle at 38% 34%,#b8452e,#7d2216 62%,#5a160d);color:#f3d7a6;
+  box-shadow:0 0 0 6px rgba(125,34,22,.35),0 8px 30px rgba(0,0,0,.6);text-align:center;font-style:italic;
+  font-size:1rem;line-height:1.2;padding:1rem;opacity:0;transform:scale(1.25);transition:opacity 1s ease,transform 1s cubic-bezier(.2,.8,.2,1);}
+.seal.in{opacity:1;transform:none;}
+
+/* the dream */
+.dream textarea{width:100%;background:#0d0f17;color:#e6e8ef;border:1px solid #2c3140;border-radius:2px;
+  padding:.8rem .9rem;font:inherit;font-size:1.05rem;line-height:1.6;resize:vertical;margin-bottom:.6rem;}
+.dream textarea:focus{outline:1px solid #6b7287;}
+.frags{display:flex;flex-wrap:wrap;gap:.4rem;margin:.2rem 0 .9rem;}
+.frags button{width:auto!important;border:1px solid #2c3140!important;border-radius:2px;padding:.45rem .7rem!important;
+  text-transform:none!important;letter-spacing:.01em!important;font:italic .9rem/1.3 Georgia,serif!important;color:#9aa2b6!important;}
+.frags button:hover{color:#e6e8ef!important;border-color:#6b7287!important;}
+
+#black{position:fixed;inset:0;z-index:4;background:#000;opacity:0;pointer-events:none;transition:opacity 1.8s ease;
+  display:grid;place-content:center;justify-items:center;gap:2rem;padding:2rem;}
+#black.on{opacity:1;pointer-events:auto;}
+#final{max-width:34rem;margin:0;text-align:center;color:#9c9384;text-wrap:pretty;}
+#final b{font-weight:normal;color:#e6dccb;}
+#final .dreamt{display:block;margin:1.4rem 0;color:var(--gold);font-style:italic;font-size:1.15em;}
+#after{display:flex;gap:1.4rem;flex-wrap:wrap;justify-content:center;}
+.quiet{border:0;background:none;font:.68rem/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;
+  color:#6b6459;padding:.9rem .6rem;cursor:pointer;min-height:44px;text-decoration:none;}
+.quiet:hover,.quiet:focus-visible{color:#d2c8b8;}
+#after a.quiet{display:inline-flex;align-items:center;color:#a08a5c;}
+#after a.quiet:hover,#after a.quiet:focus-visible{color:#e8bd6a;}
+
+/* the acknowledgement, after the ending */
+#thanks{max-width:33rem;margin:0;padding-top:1.6rem;border-top:1px solid rgba(232,189,106,.24);text-align:center;color:#a89e8e;
+  font-size:.95rem;line-height:1.7;text-wrap:pretty;opacity:0;transition:opacity 2600ms ease 1200ms;}
+#thanks.in{opacity:1;}
+#thanks p{margin:0;}
+#thanks b{font-weight:normal;color:#e8bd6a;}
+#thanks .tk{margin-bottom:.9rem;font:.64rem/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#a08a5c;}
+#thanks .ts{margin-top:.9rem;font:.64rem/1.6 ui-sans-serif,system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#6b6459;}
+#black.on #thanks{opacity:1;}
+
+
+#de{position:fixed;inset:0;z-index:8;overflow-y:auto;background:#070606;padding:3rem 1.5rem;}
+#de .sheet{max-width:40rem;margin:0 auto;}
+#de h2{font-weight:normal;color:#e2d6c2;}
+#de p{color:#b4ab9c;}
+#de p[lang=de]{color:#e6dccb;}
+#de dt{color:#e3b866;font-style:italic;margin-top:.8rem;}
+#de dd{margin:0 0 .4rem;color:#9c9384;}
+
+@media (max-width:400px){
+  #stage{padding:0 1.15rem;}
+  .pad button{font-size:1.2rem!important;}
+}
+</style>
+</head>
+<body>
+
+<div id="stage">
+  <header id="tableau"></header>
+  <main id="text" aria-live="polite"></main>
+  <nav id="choices" aria-label="Choices"></nav>
+</div>
+<div id="count" aria-hidden="true"></div>
+
+<div id="intro">
+  <div class="card">
+    <p class="kicker">after Franz Kafka &#183; 1917</p>
+    <h1>An Imperial Message</h1>
+    <p class="role">A dying Emperor has sent a message. It is meant for one person only, and that person is you.</p>
+    <label class="name" for="name">Your name (optional)</label>
+    <input id="name" maxlength="24" autocomplete="off" spellcheck="false" placeholder="you"><br>
+    <button id="begin" type="button">Begin</button>
+    <p class="meta">Text-only version &#183; about ten minutes &#183; the name stays on this device<br>
+    <button id="deBtn" class="quiet" type="button">Read Kafka&#8217;s original German</button></p>
+  </div>
+</div>
+
+<div id="black"><p id="final"></p>
+  <aside id="thanks" aria-label="Acknowledgement">
+    <p class="tk">With gratitude</p>
+    <p>The idea of making this game came to me from the teaching of <b>Prof. (Dr.) Prasannanshu</b>, who asks his students to be creative, and to answer a work of literature by making something of their own.</p>
+    <p class="ts">Vikas Goyanka &#183; LLB26057 &#183; National Law University, Delhi</p>
+  </aside>
+  <div id="after"><button id="deBtn2" class="quiet" type="button">Read it in German</button>
+  <button id="again" class="quiet" type="button">Begin again</button>
+  <a class="quiet" href="index.html">Home page</a></div></div>
+<div id="de" hidden></div>
+
+<script>
+(function(){
+"use strict";
+
+/* -------------------------------------------------------------- *
+ *  Text: an original English adaptation of Kafka's
+ *  Eine kaiserliche Botschaft (1917), written for this project from
+ *  the public-domain German. Do not paste in a published translation.
+ *  This block is the only home of the prose: tools/extract-text.mjs im
+ *  copies it into src/im/text.gen.js for the 3D build.
+ *  Keys starting with "_" are never read aloud.
+ * -------------------------------------------------------------- */
+var T = {
+
+  prologue: [
+    [
+      "Far from the capital, in a province so remote that the maps give up before they reach it, there is a window.",
+      "Evening is coming on. You are sitting at it."
+    ],
+    [
+      "The Emperor, people say, is the sun.",
+      "If that is so, you are one of the smallest shadows it throws: a shadow that has fled from the imperial sun into the farthest distance, and can hardly be seen at all."
+    ],
+    [
+      "And yet, so it is said, the Emperor has sent a message from his deathbed.",
+      "Not to the princes. Not to the city. To you. To you alone."
+    ],
+    [
+      "This is how it was sent.",
+      "You will see it through the messenger&#8217;s eyes, and you will be the one who drives him on. But remember who the message is for."
+    ]
+  ],
+
+  court: [
+    "The Emperor is dying, and the whole empire has come to watch. Every wall that stood in the way has been broken down.",
+    "On the staircases that sweep up wide and high on every side, the great princes of the realm stand in a ring.",
+    "In the middle of them all, he has called for a messenger."
+  ],
+
+  kneel: [ "He has the messenger kneel down beside the bed." ],
+  whisper: [ "Then he whispers the message into his ear." ],
+  repeat: [ "It matters so much to him that he has the messenger whisper it back into his own ear." ],
+  wrong: [
+    [ "He shakes his head, very slightly, and whispers it again, more slowly." ],
+    [ "Again. Slower still. He has time for this, if for nothing else." ]
+  ],
+  nod: [ "He nods. It is right, every word of it." ],
+  ask: [
+    "The messenger asks what it means.",
+    "The Emperor is past answering. His eyes are already on something far beyond the room. The message was not given to the messenger to understand, only to carry."
+  ],
+  dispatch: [
+    "Then, before the whole audience of his death, he sends the messenger on his way.",
+    "On the messenger&#8217;s chest is the sign of the sun."
+  ],
+
+  go: [ "The messenger sets off at once: a strong man, a man who never tires." ],
+  push: [ "One arm forward, then the other: that is how he cuts his way through the crowd." ],
+  sun: [ "Where they will not give way, he points to his chest, to the sign of the sun, and they let him through." ],
+  easy: [ "He moves easily, as no one else could." ],
+  family: [ "A family is eating supper on the floor of a chamber. They have lived here all their lives, and their parents before them. They lift their bowls to let him pass." ],
+  roofs: [ "Through a window: roofs. Roofs and courtyards and more roofs, all the way to the edge of the sky." ],
+  child: [
+    "A child tugs at his sleeve and asks what the message says.",
+    "He knows it perfectly. He could not tell her a single word of it."
+  ],
+  bell: [
+    "Somewhere behind him a bell begins to toll. The crowd falls silent and bows toward the inner rooms.",
+    "The Emperor is dead. The message comes from a dead man now, and it is still on its way."
+  ],
+  vast: [ "But the crowd is so vast. Their dwellings have no end." ],
+  field: [
+    "If open country lay before him, how he would fly.",
+    "And soon, surely, you would hear it: the glorious beating of his fists upon your door."
+  ],
+  instead: [
+    "Instead, he wears himself out for nothing. He is still forcing his way through the chambers of the innermost palace.",
+    "He will never come to the end of them."
+  ],
+  onward: [
+    [ "Another chamber. Another crowd." ],
+    [ "Another chamber. A bed in the corner, a fire, a grandmother asleep in a chair." ],
+    [ "Another doorway, and beyond it another room just like this one." ],
+    [ "He is still pushing. He is still in the innermost palace." ]
+  ],
+  back: [ "He looks back. The crowd has closed behind him like water. There is no way back either." ],
+  stand: [ "He stands still for a moment, and the crowd fills in the space he made, as if he had never passed." ],
+
+  ifdid: [ "And if he did come to the end of them, nothing would be gained." ],
+  stairs: [ "He would have to fight his way down the stairs, and if he managed that, nothing would be gained." ],
+  courts: [ "The courtyards would have to be crossed." ],
+  second: [ "And after the courtyards, the second palace, built all the way around the first." ],
+  again: [
+    "And again stairs, and courtyards. And again a palace.",
+    "And so on, for thousands of years."
+  ],
+  millennia: [
+    [ "Behind him, emperors die and new ones take their places. Each of them, people say, is the sun." ],
+    [ "Not one of them has heard of the message." ]
+  ],
+  gate: [ "And if at last he burst out through the outermost gate" ],
+  never: [ "but never, never can that happen" ],
+  capital: [ "then the capital would lie before him: the centre of the world, heaped high with its own sediment." ],
+  nobody: [ "No one gets through here," ],
+  deadman: [ "least of all with a message from a dead man." ],
+  still: [
+    [ "He is still running." ],
+    [ "He is still pushing. One arm, then the other." ],
+    [ "He has not stopped. He never will." ]
+  ],
+
+  windowOpen: [
+    "And you? Far away, at the very edge of everything, you are sitting at your window. The light is going."
+  ],
+  road: [
+    [ "Someone is coming along the road!", "It is only the miller&#8217;s boy, on his way home to supper. He does not look up." ],
+    [ "The road is empty. It has been empty all evening." ],
+    [ "Nothing on the road but the dark." ]
+  ],
+  listen: [
+    [ "A knock. Then another.", "It is the shutter, loose in the wind, beating against the wall." ],
+    [ "Only the shutter again." ],
+    [ "Crickets. The shutter. Your own heart." ]
+  ],
+  glow: [
+    [ "Far off, past the last of the hills, there is a faint glow in the sky. They say the capital lies there.", "Somewhere in that light, a palace is still full of people." ],
+    [ "The glow has not moved. It never does." ]
+  ],
+  dusk: [
+    "Night is coming. The road is empty, and the message has not come. It never could."
+  ],
+  final: [
+    "But you sit at your window and dream it to yourself, as evening comes."
+  ],
+
+  _fragments: [
+    "You were not forgotten.",
+    "Forgive me.",
+    "The gate was always open.",
+    "Do not wait for me. Go.",
+    "I was afraid too.",
+    "There is nothing to tell.",
+    "It was always meant for you.",
+    "Live as though it had arrived.",
+    "Look after the others.",
+    "I never knew your name."
+  ],
+
+  _de: [
+    "Der Kaiser &#8211; so hei&#223;t es &#8211; hat Dir, dem Einzelnen, dem j&#228;mmerlichen Untertanen, dem winzig vor der kaiserlichen Sonne in die fernste Ferne gefl&#252;chteten Schatten, gerade Dir hat der Kaiser von seinem Sterbebett aus eine Botschaft gesendet. Den Boten hat er beim Bett niederknieen lassen und ihm die Botschaft ins Ohr zugefl&#252;stert; so sehr war ihm an ihr gelegen, da&#223; er sich sie noch ins Ohr wiedersagen lie&#223;. Durch Kopfnicken hat er die Richtigkeit des Gesagten best&#228;tigt. Und vor der ganzen Zuschauerschaft seines Todes &#8211; alle hindernden W&#228;nde werden niedergebrochen und auf den weit und hoch sich schwingenden Freitreppen stehen im Ring die Gro&#223;en des Reichs &#8211; vor allen diesen hat er den Boten abgefertigt.",
+    "Der Bote hat sich gleich auf den Weg gemacht; ein kr&#228;ftiger, ein unerm&#252;dlicher Mann; einmal diesen, einmal den andern Arm vorstreckend schafft er sich Bahn durch die Menge; findet er Widerstand, zeigt er auf die Brust, wo das Zeichen der Sonne ist; er kommt auch leicht vorw&#228;rts, wie kein anderer. Aber die Menge ist so gro&#223;; ihre Wohnst&#228;tten nehmen kein Ende. Oeffnete sich freies Feld, wie w&#252;rde er fliegen und bald wohl h&#246;rtest Du das herrliche Schlagen seiner F&#228;uste an Deiner T&#252;r.",
+    "Aber statt dessen, wie nutzlos m&#252;ht er sich ab; immer noch zw&#228;ngt er sich durch die Gem&#228;cher des innersten Palastes; niemals wird er sie &#252;berwinden; und gel&#228;nge ihm dies, nichts w&#228;re gewonnen; die Treppen hinab m&#252;&#223;te er sich k&#228;mpfen; und gel&#228;nge ihm dies, nichts w&#228;re gewonnen; die H&#246;fe w&#228;ren zu durchmessen; und nach den H&#246;fen der zweite umschlie&#223;ende Palast; und wieder Treppen und H&#246;fe; und wieder ein Palast; und so weiter durch Jahrtausende; und st&#252;rzte er endlich aus dem &#228;u&#223;ersten Tor &#8211; aber niemals, niemals kann es geschehen &#8211; liegt erst die Residenzstadt vor ihm, die Mitte der Welt, hochgesch&#252;ttet voll ihres Bodensatzes. Niemand dringt hier durch und gar mit der Botschaft eines Toten. &#8211; Du aber sitzt an Deinem Fenster und ertr&#228;umst sie Dir, wenn der Abend kommt."
+  ],
+  _deSource: "Franz Kafka, &#8220;Eine kaiserliche Botschaft&#8221;. Selbstwehr (Prague), 24 September 1919; collected in Ein Landarzt. Written March&#8211;April 1917. Public domain. Text after the first printing, via Wikisource.",
+  _deNotes: [
+    { de: "Dir &#8230; Deiner T&#252;r", en: "Kafka writes the intimate &#8220;Du&#8221; with a capital letter, as in a personal letter. The whole story is addressed to one reader." },
+    { de: "so hei&#223;t es", en: "&#8220;so it is said&#8221;. The story is a rumour before it is a story." },
+    { de: "dem Einzelnen", en: "&#8220;the single one, the individual&#8221;: the one person among millions." },
+    { de: "hindernden W&#228;nde werden niedergebrochen", en: "The walls are broken down for the Emperor&#8217;s death. The only walls anyone removes are the ones around him." },
+    { de: "wie kein anderer", en: "&#8220;like no one else&#8221;. The messenger is the best there could be, and it makes no difference." },
+    { de: "w&#252;rde &#8230; w&#228;re &#8230; gel&#228;nge &#8230; st&#252;rzte", en: "The subjunctive. From &#8220;Oeffnete sich freies Feld&#8221; on, almost everything the messenger does is only &#8220;would&#8221; or &#8220;if&#8221;." },
+    { de: "Bodensatz", en: "sediment, dregs: what settles at the bottom. The capital is heaped up with its own leftovers." },
+    { de: "und gar", en: "&#8220;let alone, least of all&#8221;. Some English versions use &#8220;even&#8221;, which softens it. With a dead man&#8217;s message, getting through is even less possible." },
+    { de: "ertr&#228;umst sie Dir", en: "&#8220;erträumen&#8221; is to dream something into being, or to dream it up. You don&#8217;t just dream of the message; you make it by dreaming." }
+  ]
+};
+
+/* -------------------------------------------------------------- *
+ *  The message itself does not exist. Each run whispers a fresh
+ *  string of glyphs that stands for nothing, and nothing decodes it.
+ * -------------------------------------------------------------- */
+var GLYPHS = ["&#9737;", "&#9680;", "&#10023;", "&#9671;", "&#9790;", "&#8756;"];
+
+var $ = function(id){ return document.getElementById(id); };
+var tableau = $("tableau"), textEl = $("text"), choices = $("choices"), countEl = $("count");
+var black = $("black"), finalEl = $("final"), againEl = $("again"), intro = $("intro"), nameEl = $("name");
+var S;
+function reset(){
+  S = { name:"", seq:[], said:[], wrong:0, asked:false, pushes:0, beat:0, chambers:0, suns:0, looked:false,
+        ifs:0, years:0, after:0, road:0, listen:0, glow:0, dream:"", busy:true };
+}
+reset();
+
+var timers = [];
+function later(fn, ms){ var t = setTimeout(fn, ms); timers.push(t); return t; }
+function clearTimers(){ timers.forEach(clearTimeout); timers = []; }
+function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return "&#" + c.charCodeAt(0) + ";"; }); }
+function who(){ return S.name ? esc(S.name) : "you"; }
+
+/* ---- reveal, one line at a time; click or space hurries it ---- */
+var hurryNow = null;
+function reveal(lines, done, cls, keep){
+  textEl.classList.remove("out");
+  if (!keep) textEl.innerHTML = "";
+  var i = 0, skip = false, pend = null;
+  hurryNow = function(){ skip = true; clearTimeout(pend); next(); };
+  function next(){
+    if (i >= lines.length){ hurryNow = null; pend = later(done || function(){}, skip ? 250 : 650); return; }
+    var p = document.createElement("p");
+    p.className = "line" + (cls ? " " + cls : "");
+    p.innerHTML = lines[i];
+    textEl.appendChild(p);
+    while (keep && textEl.querySelectorAll(".line").length > 5) textEl.removeChild(textEl.querySelector(".line"));
+    textEl.scrollTop = textEl.scrollHeight;
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ p.classList.add("in"); }); });
+    var wait = 900 + Math.min(2800, p.textContent.length * 26);
+    i++;
+    if (skip){ next(); return; }
+    pend = later(next, wait);
+  }
+  next();
+}
+function fadeOut(cb){
+  if (!textEl.firstChild){ later(cb, 200); return; }
+  textEl.classList.add("out");
+  later(function(){ textEl.innerHTML = ""; textEl.classList.remove("out"); later(cb, 400); }, 1250);
+}
+
+/* ---- choices: bottom-anchored. The forward action is always the last
+   button, in the same place, and always does something. ---- */
+function offer(list){
+  choices.classList.remove("in");
+  choices.innerHTML = "";
+  list.forEach(function(c){
+    var b = document.createElement("button");
+    b.type = "button"; b.innerHTML = c.label;
+    if (c.main) b.className = "main";
+    b.addEventListener("click", function(){ if (S.busy) return; S.busy = true; tick(); c.fn(); });
+    choices.appendChild(b);
+  });
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ choices.classList.add("in"); S.busy = false; }); });
+}
+function hide(){ choices.classList.remove("in"); }
+function setCount(s){ countEl.textContent = s || ""; }
+
+/* ---- a few sounds, because the whisper and the knock need them ---- */
+var ac = null;
+function audio(){ if (!ac){ try { ac = new (window.AudioContext || window.webkitAudioContext)(); } catch(e){} } if (ac && ac.state === "suspended") ac.resume(); return ac; }
+function tone(f, peak, dur, delay, type){
+  var c = audio(); if (!c) return;
+  var t = c.currentTime + (delay || 0), o = c.createOscillator(), g = c.createGain();
+  o.type = type || "sine"; o.frequency.value = f;
+  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  o.connect(g).connect(c.destination); o.start(t); o.stop(t + dur + 0.05);
+}
+function tick(){ tone(180, 0.04, 0.15); }
+var PENTA = [392, 440, 523.25, 587.33, 659.25, 784];
+function glyphTone(k, d){ tone(PENTA[k], 0.08, 1.4, d); tone(PENTA[k] * 2.01, 0.02, 0.8, d); }
+function knock(n){ for (var i = 0; i < n; i++){ tone(130, 0.35, 0.12, i * 0.32, "triangle"); tone(330, 0.08, 0.05, i * 0.32); } }
+function bell(){ [110, 220.6, 299, 403, 545].forEach(function(f, i){ tone(f, 0.12 / (i + 1), 6 - i * 0.6, 0); }); }
+
+/* -------------------------------------------------------------- *
+ *  The window, first
+ * -------------------------------------------------------------- */
+function begin(){
+  audio();
+  S.name = nameEl.value.trim().slice(0, 24);
+  try { localStorage.setItem("im:name", S.name); } catch(e){}
+  intro.classList.add("gone");
+  later(function(){ intro.hidden = true; }, 1300);
+  document.body.className = "window";
+  card(0);
+}
+function card(n){
+  if (n >= T.prologue.length){ fadeOut(court); return; }
+  reveal(T.prologue[n], function(){
+    if (n === 2){
+      var s = document.createElement("div");
+      s.className = "seal"; s.innerHTML = "for<br>" + who();
+      textEl.appendChild(s);
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){ s.classList.add("in"); }); });
+      tone(90, 0.3, 0.5, 0.2, "triangle");
+    }
+    offer([{ label: "Continue", main: true, fn: function(){ hide(); fadeOut(function(){ card(n + 1); }); } }]);
+  });
+}
+
+/* -------------------------------------------------------------- *
+ *  The deathbed
+ * -------------------------------------------------------------- */
+function court(){
+  document.body.className = "palace";
+  tableau.textContent = "The Emperor’s deathbed";
+  reveal(T.court, function(){
+    offer([{ label: "Kneel by the bed", main: true, fn: function(){ hide(); fadeOut(whisper); } }]);
+  });
+}
+function newSeq(){
+  var s = [];
+  for (var i = 0; i < 5; i++) s.push(Math.floor(Math.random() * GLYPHS.length));
+  return s;
+}
+function whisper(){
+  if (!S.seq.length) S.seq = newSeq();
+  var slow = 1 + S.wrong * 0.5;
+  reveal(S.wrong ? T.wrong[Math.min(S.wrong, 2) - 1] : T.kneel.concat(T.whisper), function(){
+    var row = document.createElement("div");
+    row.className = "glyphs"; row.setAttribute("aria-label", "the whispered message");
+    textEl.appendChild(row);
+    S.seq.forEach(function(k, i){
+      var sp = document.createElement("span"); sp.innerHTML = GLYPHS[k]; row.appendChild(sp);
+      later(function(){ sp.classList.add("in"); glyphTone(k); }, 600 + i * 850 * slow);
+    });
+    later(function(){
+      /* after two misses the glyphs stay up, so nobody is stuck at the bed */
+      if (S.wrong < 2) row.querySelectorAll("span").forEach(function(s){ s.classList.remove("in"); });
+      later(repeatBack, 900);
+    }, 600 + S.seq.length * 850 * slow + 900);
+  });
+}
+function repeatBack(){
+  S.said = [];
+  reveal(S.wrong ? [] : T.repeat, function(){
+    choices.classList.remove("in");
+    choices.innerHTML = "";
+    var said = document.createElement("div"); said.className = "said";
+    var pad = document.createElement("div"); pad.className = "pad";
+    GLYPHS.forEach(function(g, k){
+      var b = document.createElement("button"); b.type = "button"; b.innerHTML = g;
+      b.setAttribute("aria-label", "glyph " + (k + 1));
+      b.addEventListener("click", function(){
+        if (S.said.length >= S.seq.length) return;
+        S.said.push(k); glyphTone(k);
+        var sp = document.createElement("span"); sp.innerHTML = g; said.appendChild(sp);
+        if (S.said.length === S.seq.length) later(judge, 700);
+      });
+      pad.appendChild(b);
+    });
+    choices.appendChild(said); choices.appendChild(pad);
+    requestAnimationFrame(function(){ choices.classList.add("in"); S.busy = false; });
+  }, null, !!S.wrong);
+}
+function judge(){
+  hide();
+  var ok = S.said.every(function(k, i){ return k === S.seq[i]; });
+  /* he never gives up on it: a wrong answer is only whispered again, slower */
+  if (!ok){ S.wrong++; fadeOut(whisper); return; }
+  fadeOut(function(){
+    reveal(T.nod, function(){
+      offer([
+        { label: "Ask him what it means", fn: function(){ S.asked = true; hide(); fadeOut(function(){ reveal(T.ask, dispatch); }); } },
+        { label: "Go", main: true, fn: function(){ hide(); fadeOut(dispatch); } }
+      ]);
+    });
+  });
+}
+function dispatch(){
+  reveal(T.dispatch, function(){
+    offer([{ label: "Run", main: true, fn: function(){ hide(); fadeOut(startRun); } }]);
+  }, null, true);
+}
+
+/* -------------------------------------------------------------- *
+ *  The throng. "Run" is always last and always takes him on.
+ * -------------------------------------------------------------- */
+var BEATS = ["go", "push", "sun", "easy", "family", "child", "bell", "vast", "field", "instead"];
+function startRun(){
+  tableau.textContent = "The chambers of the innermost palace";
+  S.chambers = 0;
+  setCount("Chambers crossed: 0");
+  runChoices();
+}
+function runChoices(){
+  var list = [];
+  if (S.beat >= 3) list.push({ label: "Show the sign of the sun", fn: showSun });
+  if (S.beat >= 4 && !S.looked) list.push({ label: "Look out of a window", fn: lookOut });
+  if (S.beat >= 2) list.push({ label: "Turn back", fn: function(){ hide(); fadeOut(function(){ reveal(T.back, runChoices); }); } });
+  list.push({ label: "Run", main: true, fn: run });
+  offer(list);
+}
+function run(){
+  hide();
+  S.pushes++; S.chambers++;
+  setCount("Chambers crossed: " + S.chambers);
+  fadeOut(function(){
+    if (S.beat < BEATS.length){
+      var key = BEATS[S.beat++];
+      if (key === "bell") bell();
+      if (key === "field") later(function(){ knock(3); }, 4200);
+      reveal(T[key], key === "instead" ? suppose : runChoices);
+    } else {
+      reveal(T.onward[(S.chambers) % T.onward.length], runChoices);
+    }
+  });
+}
+function showSun(){
+  hide(); S.suns++;
+  tone(523, 0.06, 2, 0); tone(659, 0.05, 2, 0.1); tone(784, 0.04, 2, 0.2);
+  fadeOut(function(){ reveal(S.suns === 1 ? T.sun : T.easy, runChoices); });
+}
+function lookOut(){ hide(); S.looked = true; fadeOut(function(){ reveal(T.roofs, runChoices); }); }
+
+/* -------------------------------------------------------------- *
+ *  "And if he did...": the rest of the journey is all subjunctive,
+ *  and each step of it is printed paler than the last.
+ * -------------------------------------------------------------- */
+var IFS = [["ifdid", "if1"], ["stairs", "if1"], ["courts", "if2"], ["second", "if2"], ["again", "if3"], ["millennia", "if3"], ["gate", "if4"]];
+function suppose(){
+  offer([{ label: "Run", main: true, fn: function(){ hide(); textEl.innerHTML = ""; S.ifs = 0; nextIf(); } }]);
+}
+function nextIf(){
+  var step = IFS[S.ifs++], key = step[0];
+  tableau.textContent = "if…";
+  if (key === "millennia"){
+    var years = 0;
+    var climb = setInterval(function(){
+      years += Math.round(37 + years * 0.18);
+      setCount("Years: " + years.toLocaleString("en"));
+      if (years > 3000){ clearInterval(climb); }
+    }, 120);
+    timers.push(climb);
+    reveal(T.millennia[0].concat(T.millennia[1]), afterIf, step[1], true);
+    return;
+  }
+  reveal(T[key], afterIf, step[1], true);
+}
+function afterIf(){
+  if (S.ifs < IFS.length){ offer([{ label: "Run", main: true, fn: function(){ hide(); nextIf(); } }]); return; }
+  /* the outermost gate */
+  later(function(){
+    tone(70, 0.4, 1.2, 0, "triangle");
+    reveal(T.never, function(){
+      reveal(T.capital.concat(T.nobody), rewind, "if4", true);
+    }, "never", true);
+  }, 600);
+}
+function rewind(){
+  /* never: everything after the first chambers is struck out */
+  later(function(){
+    var ls = textEl.querySelectorAll(".line");
+    ls.forEach(function(l, i){ later(function(){ l.classList.add("struck"); tone(900 - i * 50, 0.03, 0.2); }, i * 160); });
+    later(function(){
+      textEl.innerHTML = "";
+      tableau.textContent = "The chambers of the innermost palace";
+      setCount("Chambers crossed: " + S.chambers);
+      reveal(T.instead.slice(0, 1).concat(T.deadman), function(){
+        offer([
+          { label: "Leave him running", fn: function(){ hide(); fadeOut(toWindow); } },
+          { label: "Run", main: true, fn: keepRunning }
+        ]);
+      });
+    }, ls.length * 160 + 1400);
+  }, 1500);
+}
+function keepRunning(){
+  hide(); S.after++; S.chambers++;
+  setCount("Chambers crossed: " + S.chambers);
+  fadeOut(function(){
+    reveal(T.still[(S.after - 1) % T.still.length], function(){
+      offer([
+        { label: "Leave him running", fn: function(){ hide(); fadeOut(toWindow); } },
+        { label: "Run", main: true, fn: keepRunning }
+      ]);
+    });
+  });
+}
+
+/* -------------------------------------------------------------- *
+ *  The window
+ * -------------------------------------------------------------- */
+function toWindow(){
+  document.body.className = "window";
+  tableau.textContent = "Your window";
+  setCount("");
+  reveal(T.windowOpen, windowChoices);
+}
+function windowChoices(){
+  offer([
+    { label: "Watch the road", fn: function(){ hide(); fadeOut(function(){ reveal(T.road[Math.min(S.road++, 2)], windowChoices); }); } },
+    { label: "Listen", fn: function(){ hide(); if (!S.listen) knock(3); fadeOut(function(){ reveal(T.listen[Math.min(S.listen++, 2)], windowChoices); }); } },
+    { label: "Look toward the capital", fn: function(){ hide(); fadeOut(function(){ reveal(T.glow[Math.min(S.glow++, 1)], windowChoices); }); } },
+    { label: "Dream the message", main: true, fn: function(){ hide(); fadeOut(dream); } }
+  ]);
+}
+function dream(){
+  reveal(T.dusk, function(){
+    choices.classList.remove("in");
+    choices.innerHTML = "";
+    var box = document.createElement("div"); box.className = "dream";
+    box.innerHTML = '<textarea id="dreamt" rows="3" maxlength="240" placeholder="What does it say?" aria-label="What does the message say?"></textarea>' +
+      '<div class="frags"></div>';
+    var ta = box.querySelector("textarea"), frags = box.querySelector(".frags");
+    T._fragments.forEach(function(f){
+      var b = document.createElement("button"); b.type = "button"; b.innerHTML = f;
+      b.addEventListener("click", function(){ ta.value = (ta.value ? ta.value.replace(/\s*$/, " ") : "") + b.textContent; ta.focus(); });
+      frags.appendChild(b);
+    });
+    choices.appendChild(box);
+    [["Leave it unwritten", ""], ["Seal it", null]].forEach(function(o, i){
+      var b = document.createElement("button"); b.type = "button"; b.textContent = o[0];
+      if (i === 1) b.className = "main";
+      b.addEventListener("click", function(){ if (S.busy) return; S.busy = true; S.dream = o[1] === null ? ta.value.trim() : ""; ending(); });
+      choices.appendChild(b);
+    });
+    requestAnimationFrame(function(){ choices.classList.add("in"); S.busy = false; });
+  });
+}
+function ending(){
+  hide();
+  fadeOut(function(){
+    reveal(T.final, function(){
+      later(function(){
+        black.classList.add("on");
+        finalEl.innerHTML = (S.dream
+          ? "The message never arrived. It was never going to.<span class=\"dreamt\">&#8220;" + esc(S.dream) + "&#8221;</span>That is the only version there is. Nobody ever wrote it, not Kafka and not this game. You did."
+          : "The message never arrived. It was never going to.<span class=\"dreamt\">&#8230;</span>You left it unwritten. Kafka never wrote it either.") +
+          "<br><br><b>for " + who() + "</b>";
+      }, 2400);
+    });
+  });
+}
+
+/* ---- German ---- */
+function openDe(){
+  var el = $("de");
+  el.innerHTML = '<div class="sheet"><h2>Eine kaiserliche Botschaft</h2>' +
+    T._de.map(function(p){ return '<p lang="de">' + p + '</p>'; }).join("") +
+    '<p><i>' + T._deSource + '</i></p><h2>Words to notice</h2><dl>' +
+    T._deNotes.map(function(n){ return '<dt lang="de">' + n.de + '</dt><dd>' + n.en + '</dd>'; }).join("") +
+    '</dl><p><button class="quiet" type="button" id="deClose">Close</button></p></div>';
+  el.hidden = false;
+  $("deClose").addEventListener("click", function(){ el.hidden = true; });
+}
+
+/* ---- input ---- */
+$("begin").addEventListener("click", begin);
+nameEl.addEventListener("keydown", function(e){ if (e.key === "Enter") begin(); });
+try { nameEl.value = localStorage.getItem("im:name") || ""; } catch(e){}
+$("deBtn").addEventListener("click", openDe);
+$("deBtn2").addEventListener("click", openDe);
+againEl.addEventListener("click", function(){
+  clearTimers(); reset();
+  black.classList.remove("on");
+  textEl.innerHTML = ""; choices.innerHTML = ""; tableau.textContent = ""; setCount("");
+  later(begin, 900);
+});
+document.addEventListener("keydown", function(e){
+  if (e.target.closest && e.target.closest("textarea, input")) return;
+  if (e.key === " " && hurryNow){ e.preventDefault(); hurryNow(); }
+});
+textEl.addEventListener("click", function(){ if (hurryNow) hurryNow(); });
+
+window.__im = { state: function(){ return S; }, T: T };
+})();
+</script>
+</body>
+</html>

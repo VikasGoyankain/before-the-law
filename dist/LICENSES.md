@@ -10,7 +10,11 @@ are MIT and require their copyright notices to be retained; both notices are in 
 banner at the top of the `<script>` block in `index.html`. Nothing else here needs
 attribution — every other asset is CC0 or original to this project.
 
-There is **no attribution to track over time**, no per-use registration, and nothing
+**Two exceptions, both added later and both described at the end of this file:**
+the portrait on the home page, and the character sculpts in *An Imperial Message*.
+Neither is CC0. Everything said below about free reuse applies to the rest.
+
+Apart from those, there is **no attribution to track over time**, no per-use registration, and nothing
 that expires. The piece can be hosted, forked, and reused by other institutions
 without licensing bookkeeping.
 
@@ -30,6 +34,9 @@ forever, and this project is meant to spread without a maintainer tracking it.
 | Game logic | `src/game.js` | |
 | 3D scene, gate geometry, radiance shader | `src/scene.js` | |
 | Audio playback layer | `src/audio.js` | |
+| *An Imperial Message* prose | `imperial-message.html` | Original English adaptation of Kafka's *Eine kaiserliche Botschaft*, written from the public-domain German (also quoted there, after the 1919 *Selbstwehr* printing) |
+| *An Imperial Message* scenes, shaders, crowd, sound | `src/im/*.js` | All geometry, textures (canvas-painted at runtime) and sound (WebAudio) are generated in code |
+| Hub page | `tools/hub.mjs` → `dist/index.html` | |
 
 ### The prose
 
@@ -181,3 +188,43 @@ tools/                build and verification scripts
 `assets/_source/` holds ~725 MB and must never reach the repository or the served
 build. Nothing in it is needed to build: `tools/shrink-textures.mjs` is the only step
 that reads it, and its outputs are already committed under `assets/textures/`.
+
+## Narration (assets/voice/)
+
+Every spoken line was generated at build time by `tools/make-voice.mjs` using
+**Kokoro-82M** (hexgrad, Apache License 2.0) through **kokoro-js** (Apache
+License 2.0). Voices used: `bm_george` (narrator), `am_fenrir` (doorkeeper,
+pitched down with added reverb), `bm_lewis` (the old man). The model and its
+runtime are build tools only and do not ship; only the resulting MP3 audio is
+inlined into `index.html`. The music, wind, footsteps, heartbeat and other
+effects are synthesised in the browser by `src/audio.js` and are original work.
+
+## An Imperial Message: narration and models
+
+Narration (`assets/voice-im/`) is made the same way, by `tools/make-voice.mjs im`
+with Kokoro-82M: `bm_george` (narrator; the "if" passages with a larger room) and
+`bf_emma` ("but never, never can that happen"). Everything else you hear in that
+game, including the whisper, the crowd, the bells, the knocking and the Shepard tone
+under the thousand years, is synthesised in the browser by `src/im/sound.js`.
+
+Character sculpts for it (`assets/models/im/`, prompts in `docs/meshy-prompts.md`)
+are optional; without them the game uses its hand-built figures. **Before adding
+any, confirm their licence meets the rule above.** Generated models from a free
+plan may carry an attribution licence. Record the plan and terms here:
+
+| Sculpts | Source | Licence |
+|---|---|---|
+| townswoman, official, prince (`assets/models/Meshy_AI_Full_body_*`) | Meshy AI, text to 3D, generated 8 Oct 2026 | **Unconfirmed: depends on the Meshy plan used** |
+| emperor, messenger (courier), villager (`ancient+emperor`, `heroic+courier`, `traveling+villager`) | Tripo AI, generated 8 Oct 2026 | **Unconfirmed: depends on the Tripo plan used** |
+
+Imported by `tools/import-im-models.mjs` (painted textures baked into vertex colours) and reduced by `tools/prep-models.mjs im`. The servant and child are still the hand-built figures.
+
+## Hub page: the portrait
+
+`assets/professor.jpg` is a portrait of Prof. (Dr.) Prasannanshu, inlined into
+`dist/index.html`. It was supplied by the developer, as an AI-rendered painting made
+from a photograph on the professor's own website, whose pictures are marked
+"all rights reserved". **It is not CC0** and is the one exception to the rule above:
+it is shown with the page made in his honour and should not be reused elsewhere
+without his consent. To ship the hub without it, delete the file and rebuild; the
+medallion falls back to a monogram.
