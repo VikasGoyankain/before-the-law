@@ -1,6 +1,8 @@
-/* Stills of the hub page (dist/index.html): one per section at desktop width,
-   the dedication gate shut and open, and a phone-width full page. Also reports
-   network requests, errors and sideways overflow.
+/* Stills and checks for the two site pages built here:
+     dist/index.html             the home page, games first
+     dist/acknowledgements.html  the tribute, with its gate that opens
+   At desktop and phone width. Reports whether both Play buttons are on the
+   first screen, network requests, errors and sideways overflow.
    Usage: node shoot-hub.mjs [outDir] */
 import puppeteer from 'puppeteer';
 import path from 'path';
@@ -10,92 +12,76 @@ import { fileURLToPath, pathToFileURL } from 'url';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const out = path.resolve(process.argv[2] || here);
 fs.mkdirSync(out, { recursive: true });
-const url = pathToFileURL(path.join(here, '../dist/index.html')).href;
+const url = f => pathToFileURL(path.join(here, '../dist/' + f)).href;
 const wait = ms => new Promise(r => setTimeout(r, ms));
 
 const b = await puppeteer.launch({ headless: true });
-const external = [], errs = [];
-const open = async (w, h) => {
+const external = [], errs = [], fail = [];
+const open = async (f, w, h) => {
   const page = await b.newPage();
   await page.setViewport({ width: w, height: h, deviceScaleFactor: 1 });
   page.on('request', r => { const u = r.url(); if (!u.startsWith('file:') && !u.startsWith('data:')) external.push(u); });
-  page.on('pageerror', e => errs.push('PAGEERROR ' + e.message));
-  page.on('console', m => { if (m.type() === 'error') errs.push('CONSOLE ' + m.text()); });
-  await page.goto(url, { waitUntil: 'load' });
+  page.on('pageerror', e => errs.push(f + ' PAGEERROR ' + e.message));
+  page.on('console', m => { if (m.type() === 'error') errs.push(f + ' CONSOLE ' + m.text()); });
+  await page.goto(url(f), { waitUntil: 'load' });
   return page;
 };
+const shot = (page, name, full) => page.screenshot({ path: path.join(out, name + '.png'), fullPage: !!full });
 const jump = (page, id) => page.evaluate(i => document.getElementById(i).scrollIntoView({ behavior: 'instant' }), id);
-/* scroll the whole page once so every reveal has fired */
 const sweep = async page => {
   const h = await page.evaluate(() => document.documentElement.scrollHeight);
   for (let y = 0; y < h; y += 500) { await page.evaluate(v => window.scrollTo(0, v), y); await wait(120); }
+  await page.evaluate(() => window.scrollTo(0, 0));
 };
+const overflow = page => page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+const check = (ok, what) => { console.log((ok ? '  ok    ' : '  FAIL  ') + what); if (!ok) fail.push(what); };
+/* where the Play buttons sit when the page first opens */
+const plays = page => page.evaluate(() => [...document.querySelectorAll('.card a.play')].map(a => Math.round(a.getBoundingClientRect().bottom)));
 
-const desk = await open(1280, 800);
-await wait(2600);
-await desk.screenshot({ path: path.join(out, 'hub-0-top.png') });
-await desk.evaluate(() => window.scrollTo(0, 620));
-await wait(400);
-await desk.screenshot({ path: path.join(out, 'hub-0b-name.png') });
-const ids = ['gift', 'readings', 'why', 'scholar', 'honours', 'road', 'lighthouse', 'shelf', 'doors'];
-for (let i = 0; i < ids.length; i++) {
-  await jump(desk, ids[i]);
-  await wait(1900);
-  await desk.screenshot({ path: path.join(out, `hub-${i + 1}-${ids[i]}.png`) });
-  if (ids[i] === 'gift') {
-    await desk.evaluate(() => window.scrollBy(0, 700));
-    await wait(1500);
-    await desk.screenshot({ path: path.join(out, 'hub-1b-tagore.png') });
-    await desk.evaluate(() => window.scrollBy(0, 640));
-    await wait(1500);
-    await desk.screenshot({ path: path.join(out, 'hub-1c-vow.png') });
+console.log('home page');
+for (const [tag, w, h] of [['desk', 1280, 800], ['laptop', 1366, 768], ['phone', 375, 812]]) {
+  const page = await open('index.html', w, h);
+  await wait(1800);
+  const p = await plays(page);
+  if (tag === 'phone') check(p[0] <= h, `phone: the first Play button is on the first screen (bottom edge ${p[0]}px of ${h})`);
+  else check(p.length === 2 && p.every(y => y <= h), `${tag} ${w}x${h}: both Play buttons are on the first screen (bottom edges ${p.join(', ')}px)`);
+  check(await overflow(page) === 0, `${tag}: no sideways scroll`);
+  await shot(page, 'home-' + tag + '-top');
+  if (tag === 'desk') for (const id of ['how', 'why']) { await jump(page, id); await wait(500); await shot(page, 'home-desk-' + id); }
+  if (tag === 'phone') await shot(page, 'home-phone-full', true);
+  const first = await page.evaluate(() => ({ h1: document.querySelector('h1').textContent, games: [...document.querySelectorAll('.card h2')].map(e => e.textContent),
+    ack: !!document.querySelector('.way a[href^="acknowledgements.html"]') && !!document.querySelector('footer a[href^="acknowledgements.html"]'),
+    noTribute: !document.querySelector('.medal, #dedication, #gift') }));
+  if (tag === 'desk') {
+    check(first.games.join(' | ') === 'Before the Law | An Imperial Message', 'the games are listed first: ' + first.games.join(', '));
+    check(first.noTribute, 'the tribute is no longer on the home page');
+    check(first.ack, 'the acknowledgements are linked from the bar and the footer');
   }
-  if (ids[i] === 'why') {
-    await desk.evaluate(() => window.scrollBy(0, 690));
-    await wait(1500);
-    await desk.screenshot({ path: path.join(out, 'hub-why-b.png') });
-  }
-  if (ids[i] === 'scholar') {
-    await desk.evaluate(() => window.scrollBy(0, 720));
-    await wait(1500);
-    await desk.screenshot({ path: path.join(out, 'hub-2b-elements.png') });
-  }
+  await page.close();
 }
-await jump(desk, 'dedication');
-await wait(1500);
-await jump(desk, 'plaque');
-await wait(250);
-await desk.screenshot({ path: path.join(out, 'hub-8-gate-shut.png') });
-await wait(8000);
-await desk.screenshot({ path: path.join(out, 'hub-9-gate-open.png') });
-const info = await desk.evaluate(() => ({
-  opened: document.getElementById('plaque').classList.contains('open'),
-  overflowX: document.documentElement.scrollWidth - document.documentElement.clientWidth,
-  links: [...document.querySelectorAll('a[href]')].map(a => a.getAttribute('href')).filter(h => !/^(#|https?:)/.test(h)).join(' '),
-  outside: [...document.querySelectorAll('a[href^="http"]')].length,
-}));
 
-const phone = await open(375, 812);
-await wait(1200);
-await sweep(phone);
-await wait(4500);
-await phone.evaluate(() => window.scrollTo(0, 0));
-await wait(400);
-await phone.screenshot({ path: path.join(out, 'hub-phone.png'), fullPage: true });
-for (const id of ['gift', 'why', 'scholar', 'road', 'shelf', 'doors', 'plaque']) {
-  await jump(phone, id);
-  await wait(500);
-  await phone.screenshot({ path: path.join(out, 'hub-phone-' + id + '.png') });
+console.log('acknowledgements');
+for (const [tag, w, h] of [['desk', 1280, 800], ['phone', 375, 812]]) {
+  const page = await open('acknowledgements.html', w, h);
+  await wait(2200);
+  await shot(page, 'ack-' + tag + '-top');
+  if (tag === 'desk') {
+    for (const id of ['gift', 'scholar', 'honours', 'road', 'lighthouse', 'shelf', 'doors']) { await jump(page, id); await wait(1600); await shot(page, 'ack-desk-' + id); }
+    await jump(page, 'plaque'); await wait(250); await shot(page, 'ack-desk-gate-shut');
+    await wait(8000); await shot(page, 'ack-desk-gate-open');
+    check(await page.evaluate(() => document.getElementById('plaque').classList.contains('open')), 'the dedication gate opens');
+    check(await page.evaluate(() => [...document.querySelectorAll('a[href^="index.html"]')].length >= 2), 'links back to the games');
+  } else {
+    await sweep(page); await wait(4500);
+    check(await page.evaluate(() => [...document.querySelectorAll('.rv')].every(e => e.classList.contains('on'))), 'phone: every section reveals after a full scroll');
+    await shot(page, 'ack-phone-full', true);
+  }
+  check(await overflow(page) === 0, `${tag}: no sideways scroll`);
+  await page.close();
 }
-await phone.evaluate(() => window.scrollTo(0, 0));
-await wait(300);
-await phone.screenshot({ path: path.join(out, 'hub-phone-top.png') });
-const phoneHidden = await phone.evaluate(() => [...document.querySelectorAll('.rv')].filter(e => !e.classList.contains('on')).length);
-const phoneOverflow = await phone.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
 
-console.log('gate opened:', info.opened, '| blocks never revealed after a full scroll (phone):', phoneHidden);
-console.log('sideways overflow (desktop, phone):', info.overflowX, phoneOverflow);
-console.log('local links:', info.links, '| outside links:', info.outside);
-console.log('external network requests:', external.length ? external.join(', ') : 'none');
-console.log('errors:', errs.length ? errs.join(' | ') : 'none');
+check(!external.length, 'no network requests' + (external.length ? ': ' + external.join(', ') : ''));
+check(!errs.length, 'no page errors' + (errs.length ? ': ' + errs.join(' | ') : ''));
 await b.close();
+if (fail.length) { console.log('FAILED: ' + fail.length); process.exit(1); }
+console.log('all checks passed');

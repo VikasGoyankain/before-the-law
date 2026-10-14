@@ -30,8 +30,10 @@ const copy = (from, name) => put(name, fs.readFileSync(from));
 /* the site's own pages, built here with their head tags already in place */
 const { HUB } = await import('./hub.mjs');
 const { TEACHERS } = await import('./teachers.mjs');
+const { TRIBUTE } = await import('./tribute.mjs');
 put('index.html', HUB);
 put('for-teachers.html', TEACHERS);
+put('acknowledgements.html', TRIBUTE);
 
 /* the games: two built 3D pages, and the two hand-written text-only pages */
 const game = (from, name, text) => {
@@ -46,7 +48,7 @@ game('../imperial-message.html', 'imperial-message-text.html', true);
 
 /* share-preview pictures and icon files, made by make-social.mjs */
 const SOCIAL = '../assets/social';
-for (const f of ['og-image.jpg', 'og-before-the-law.jpg', 'og-imperial-message.jpg', 'favicon.png', 'apple-touch-icon.png']) {
+for (const f of ['og-image.jpg', 'og-acknowledgements.jpg', 'og-before-the-law.jpg', 'og-imperial-message.jpg', 'favicon.png', 'apple-touch-icon.png']) {
   if (!fs.existsSync(path.join(SOCIAL, f))) throw new Error('missing ' + SOCIAL + '/' + f + ': run node make-social.mjs first');
   copy(path.join(SOCIAL, f), f);
 }

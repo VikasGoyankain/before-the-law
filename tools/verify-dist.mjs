@@ -7,7 +7,7 @@ const b = await puppeteer.launch({ headless: true,
   args: ['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--enable-webgl',
          '--autoplay-policy=no-user-gesture-required','--mute-audio'] });
 
-for (const f of ['index.html', 'for-teachers.html', 'before-the-law.html', 'before-the-law-text.html', 'imperial-message.html', 'imperial-message-text.html']) {
+for (const f of ['index.html', 'for-teachers.html', 'acknowledgements.html', 'before-the-law.html', 'before-the-law-text.html', 'imperial-message.html', 'imperial-message-text.html']) {
   const page = await b.newPage();
   const external = [], errs = [];
   page.on('request', r => { const u = r.url(); if (!u.startsWith('file:') && !u.startsWith('data:') && !u.startsWith('blob:')) external.push(u); });

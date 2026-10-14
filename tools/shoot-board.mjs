@@ -46,9 +46,9 @@ check(await G(() => !!document.querySelector('.way [data-board]') && /on$/.test(
 check(await G(() => [...document.querySelectorAll('.card a.play')].every(a => /\?board=1$/.test(a.getAttribute('href')))), 'the Play links carry ?board=1');
 check(await G(() => document.documentElement.scrollWidth <= innerWidth), 'no sideways scroll');
 await shot('1-home');
-await G(() => document.getElementById('readings').scrollIntoView({ behavior: 'instant' }));
+await G(() => document.getElementById('how').scrollIntoView({ behavior: 'instant' }));
 await sleep(1500);
-await shot('2-readings');
+await shot('2-how');
 
 /* ---- the teachers' page ---- */
 console.log('for teachers');
