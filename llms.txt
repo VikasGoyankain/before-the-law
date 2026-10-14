@@ -45,7 +45,8 @@ It is not a substitute for reading Kafka. It is meant to be played before the re
 
 ## Pages
 
-- [Home page](https://vikasgoyankain.github.io/playable-readings/): the two games, why the project was made, and a tribute to the teacher it was made for
+- [Home page](https://vikasgoyankain.github.io/playable-readings/): the two games, how to play, and why the project was made
+- [Acknowledgements](https://vikasgoyankain.github.io/playable-readings/acknowledgements.html): a tribute to the teacher the games were made for
 - [For teachers](https://vikasgoyankain.github.io/playable-readings/for-teachers.html): lesson plan, discussion questions, classroom board instructions, troubleshooting
 - [Before the Law](https://vikasgoyankain.github.io/playable-readings/before-the-law.html): the 3D game
 - [Before the Law, text-only](https://vikasgoyankain.github.io/playable-readings/before-the-law-text.html)
