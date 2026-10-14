@@ -23,7 +23,7 @@ work of literature by making something of their own.
 
 | Path | What it is |
 |---|---|
-| `dist/` | The finished site: the home page, the teachers' page, four game pages, and the files search engines and AI assistants read. Committed already built |
+| `dist/` | The finished site: the home page (games first), the teachers' page, the acknowledgements, four game pages, and the files search engines and AI assistants read. Committed already built |
 | `before-the-law.html`, `imperial-message.html` | The two text-only games, written by hand. Each also holds its game's prose, in a block called `T`, which the 3D builds read |
 | `src/`, `src/im/` | Source of the two 3D games (three.js) |
 | `tools/` | Build scripts, the headless tests, and `publish.mjs`, which puts `dist/` on the `gh-pages` branch that GitHub Pages serves |
@@ -49,7 +49,7 @@ Other steps, needed only when their inputs change:
 |---|---|
 | `node make-voice.mjs` / `node make-voice.mjs im` | After changing any spoken line. Generates the narration |
 | `node prep-models.mjs` / `node prep-models.mjs im` | After changing a 3D model |
-| `node prep-portrait.mjs <image>` | To replace the portrait on the home page |
+| `node prep-portrait.mjs <image>` | To replace the portrait on the acknowledgements page |
 | `node make-social.mjs` | After changing the portrait or the share-preview wording |
 
 If the site's address changes, set `SITE` in `tools/site.mjs` and run
@@ -66,7 +66,7 @@ The tests drive the real pages in a headless browser.
 | `node play-im.mjs` | A full playthrough of *An Imperial Message* in 3D. About ten minutes |
 | `node play-btl-text.mjs`, `node play-im-text.mjs` | Full playthroughs of the two text-only games |
 | `node verify-dist.mjs` | Every page in `dist/` loads with no errors and no network requests |
-| `node shoot-hub.mjs` | The home page at desktop and phone width |
+| `node shoot-hub.mjs` | The home page and the acknowledgements page, at desktop, laptop and phone width |
 | `node shoot-thanks.mjs` | The acknowledgement on each game's end screen |
 | `node shoot-board.mjs` | Classroom-board mode at 1920x1080, by touch alone |
 
@@ -85,6 +85,6 @@ The tests drive the real pages in a headless browser.
 
 [`assets/LICENSES.md`](assets/LICENSES.md) is the full record. The code, prose,
 sound and narration are original work; three.js and howler.js are MIT. Two
-things are not free to reuse and are marked there: the portrait on the home
-page, and the character models in *An Imperial Message*, which were made with
+things are not free to reuse and are marked there: the portrait on the
+acknowledgements page, and the character models in *An Imperial Message*, which were made with
 AI modelling tools whose terms depend on the plan they were made under.

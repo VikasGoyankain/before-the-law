@@ -41,7 +41,7 @@ h1{margin:0;font-weight:normal;color:#f1e7d3;line-height:1.06}
 .s{font-size:29px;line-height:1.4;color:#cfc5b4}
 .f{font:500 19px/1.5 "Segoe UI",system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#9c917f}`;
 
-const hub = `<style>${BASE}
+const thanks = `<style>${BASE}
 .t{position:absolute;left:78px;top:96px;width:700px}
 h1{font-size:74px;margin:34px 0 34px;white-space:nowrap}
 .f{position:absolute;left:78px;bottom:66px;width:700px}
@@ -50,10 +50,28 @@ h1{font-size:74px;margin:34px 0 34px;white-space:nowrap}
 .n{position:absolute;right:54px;top:492px;width:400px;text-align:center;font-size:25px;color:#f1e7d3}
 .n small{display:block;margin-top:6px;font:500 16px/1.4 "Segoe UI",system-ui,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#e8bd6a}
 </style><div class="glow"></div><div class="frame"></div>
-<div class="t"><div class="k">Playable Readings</div><h1>Feel Kafka.<br><span class="gold">Don&#8217;t just read him.</span></h1>
-<div class="s"><i>Before the Law</i> and <i>An Imperial Message</i>,<br>as games you can play in one class.</div></div>
-<div class="f">Free &#183; offline &#183; for any classroom</div>
+<div class="t"><div class="k">Playable Readings &#183; Acknowledgements</div><h1>With gratitude,<br><span class="gold">to a teacher.</span></h1>
+<div class="s">The games on this site were made<br>in his honour, at National Law University, Delhi.</div></div>
+<div class="f">What his teaching gave his students</div>
 ${PHOTO ? `<img class="m" src="${PHOTO}" alt=""><div class="n">${PROFESSOR}<small>Made in his honour</small></div>` : ''}`;
+
+/* the home page's card shows the games, not a person */
+const hub = `<style>${BASE}
+body{--x:76%}
+.t{position:absolute;left:78px;top:96px;width:640px}
+h1{font-size:74px;margin:34px 0 34px}
+.f{position:absolute;left:78px;bottom:66px}
+.g{position:absolute;right:56px;width:420px;padding:18px 22px 14px;border:1px solid rgba(232,189,106,.4);border-radius:6px;background:rgba(15,14,13,.72)}
+.g svg{display:block;width:100%;height:118px}
+.g b{display:block;margin-top:6px;font-weight:normal;font-size:27px;color:#f1e7d3}
+.g small{display:block;font:500 15px/1.5 "Segoe UI",system-ui,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#e8bd6a}
+.g1{top:64px}.g2{top:330px}
+</style><div class="glow"></div><div class="frame"></div>
+<div class="t"><div class="k">Playable Readings</div><h1>Feel Kafka.<br><span class="gold">Don&#8217;t just<br>read him.</span></h1>
+<div class="s">Two of his parables, as games<br>you can play in one class.</div></div>
+<div class="f">Free &#183; nothing to install &#183; works offline</div>
+<div class="g g1">${GATE}<small>Franz Kafka &#183; 1915</small><b>Before the Law</b></div>
+<div class="g g2">${RINGS}<small>Franz Kafka &#183; 1917</small><b>An Imperial Message</b></div>`;
 
 const gameCard = (art, title, line, mins) => `<style>${BASE}
 body{--x:74%}
@@ -75,6 +93,7 @@ const shot = async (html, file, w, h, opts) => {
 };
 const jpg = { type: 'jpeg', quality: 88 };
 await shot(hub, 'og-image.jpg', 1200, 630, jpg);
+await shot(thanks, 'og-acknowledgements.jpg', 1200, 630, jpg);
 await shot(gameCard(GATE, 'Before<br>the Law', 'You are the man from the country.<br>The gate stands open. Every choice costs years.', 'fifteen'), 'og-before-the-law.jpg', 1200, 630, jpg);
 await shot(gameCard(RINGS, 'An Imperial<br>Message', 'Carry a dying Emperor&#8217;s message through<br>a palace that never ends.', 'twelve'), 'og-imperial-message.jpg', 1200, 630, jpg);
 const icon = s => `<style>html,body{margin:0;background:transparent}svg{display:block;width:${s}px;height:${s}px}</style>${ICON_SVG}`;

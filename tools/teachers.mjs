@@ -5,7 +5,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { head, AUTHOR_LINE, PROFESSOR, ZIP } from './site.mjs';
+import { head, PROFESSOR, ZIP } from './site.mjs';
 import { BOARD_CSS, BOARD_JS } from './board.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -78,6 +78,8 @@ th{font:.66rem/1.4 var(--sans);letter-spacing:.16em;text-transform:uppercase;col
 td:first-child{color:var(--pale);width:34%}
 footer{margin-top:4rem;padding-top:1.8rem;border-top:1px solid rgba(232,189,106,.14);text-align:center;font:.7rem/2 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
 footer b{color:var(--gold)}
+footer a{color:var(--soft);text-decoration:none;border-bottom:1px solid rgba(232,189,106,.3)}
+footer a:hover,footer a:focus-visible{color:var(--gold)}
 @media (max-width:640px){.plan li{grid-template-columns:1fr}.plan span{padding:.6rem .9rem}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 @media print{
@@ -205,8 +207,8 @@ ${BOARD_CSS}</style>
 <h2 id="credit">Using and crediting it</h2>
 <p>Use these games in any class, at any institution, as often as you like. If you mention them in a syllabus or a paper, a line such as this is enough:</p>
 <p class="note">Vikas Goyanka, <i>Playable Readings: Before the Law and An Imperial Message</i> (National Law University, Delhi, 2026), made in honour of ${PROFESSOR}.</p>
-<p>The project grew out of the teaching of ${PROFESSOR} at National Law University, Delhi, who asks his students to answer literature by making something of their own.</p>
+<p>The project grew out of the teaching of ${PROFESSOR} at National Law University, Delhi, who asks his students to answer literature by making something of their own. <a href="acknowledgements.html">Read the acknowledgements.</a></p>
 
-<footer>Developed by <b>${AUTHOR_LINE.split(',')[0]}</b><br>${AUTHOR_LINE.split(', ').slice(1).join(' &#183; ')}</footer>
+<footer>Developed by <b>Vikas Goyanka</b> &#183; LLB26057 &#183; National Law University, Delhi<br><a href="index.html">The games</a> &#183; <a href="acknowledgements.html">Acknowledgements</a></footer>
 </main>
 </body></html>`;

@@ -11,7 +11,7 @@ banner at the top of the `<script>` block in `index.html`. Nothing else here nee
 attribution — every other asset is CC0 or original to this project.
 
 **Two exceptions, both added later and both described at the end of this file:**
-the portrait on the home page, and the character sculpts in *An Imperial Message*.
+the portrait on the acknowledgements page, and the character sculpts in *An Imperial Message*.
 Neither is CC0. Everything said below about free reuse applies to the rest.
 
 Apart from those, there is **no attribution to track over time**, no per-use registration, and nothing
@@ -36,7 +36,9 @@ forever, and this project is meant to spread without a maintainer tracking it.
 | Audio playback layer | `src/audio.js` | |
 | *An Imperial Message* prose | `imperial-message.html` | Original English adaptation of Kafka's *Eine kaiserliche Botschaft*, written from the public-domain German (also quoted there, after the 1919 *Selbstwehr* printing) |
 | *An Imperial Message* scenes, shaders, crowd, sound | `src/im/*.js` | All geometry, textures (canvas-painted at runtime) and sound (WebAudio) are generated in code |
-| Hub page | `tools/hub.mjs` → `dist/index.html` | |
+| Home page | `tools/hub.mjs` → `dist/index.html` | |
+| Acknowledgements page (apart from the portrait) | `tools/tribute.mjs` → `dist/acknowledgements.html` | |
+| Teachers' page | `tools/teachers.mjs` → `dist/for-teachers.html` | |
 
 ### The prose
 
@@ -219,12 +221,12 @@ plan may carry an attribution licence. Record the plan and terms here:
 
 Imported by `tools/import-im-models.mjs` (painted textures baked into vertex colours) and reduced by `tools/prep-models.mjs im`. The servant and child are still the hand-built figures.
 
-## Hub page: the portrait
+## Acknowledgements page: the portrait
 
 `assets/professor.jpg` is a portrait of Prof. (Dr.) Prasannanshu, inlined into
-`dist/index.html`. It was supplied by the developer, as an AI-rendered painting made
+`dist/acknowledgements.html` (and appears on its share-preview picture). It was supplied by the developer, as an AI-rendered painting made
 from a photograph on the professor's own website, whose pictures are marked
 "all rights reserved". **It is not CC0** and is the one exception to the rule above:
 it is shown with the page made in his honour and should not be reused elsewhere
-without his consent. To ship the hub without it, delete the file and rebuild; the
+without his consent. To ship the page without it, delete the file and rebuild; the
 medallion falls back to a monogram.

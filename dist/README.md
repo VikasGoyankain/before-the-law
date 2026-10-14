@@ -33,7 +33,8 @@ also shown as text.
 
 | File | What it is |
 |---|---|
-| `index.html` | The home page: the games, why the project exists, and the tribute to Prof. (Dr.) Prasannanshu |
+| `index.html` | The home page: the two games first, then how to play and why the project exists |
+| `acknowledgements.html` | The tribute to Prof. (Dr.) Prasannanshu, the teacher these games were made for |
 | `for-teachers.html` | For teachers of any course: a lesson plan, discussion questions, classroom board notes, troubleshooting. Prints cleanly |
 | `before-the-law.html` | *Before the Law* in 3D, about fifteen minutes |
 | `imperial-message.html` | *An Imperial Message* in 3D, about twelve minutes |
@@ -42,7 +43,7 @@ also shown as text.
 | `llms.txt` | A plain summary of the project for AI assistants |
 | `robots.txt`, `sitemap.xml` | For search engines |
 | `404.html` | Shown by the web host for an address that does not exist |
-| `og-image.jpg`, `og-before-the-law.jpg`, `og-imperial-message.jpg` | The preview pictures shown when a link is shared |
+| `og-image.jpg`, `og-before-the-law.jpg`, `og-imperial-message.jpg`, `og-acknowledgements.jpg` | The preview pictures shown when a link is shared |
 | `favicon.png`, `apple-touch-icon.png` | The tab icon, as files, for search engines and phones |
 | `.nojekyll` | Tells GitHub Pages to serve the folder exactly as it is |
 
@@ -190,7 +191,7 @@ have the pages indexed sooner.
 There are no accounts, no analytics and no tracking. The game pages make no
 network requests while they run. The optional name, the journal of insights
 and the classroom board setting are kept in the browser on that device and go
-nowhere. The home page links to Prof. (Dr.) Prasannanshu's public profiles; those open
+nowhere. The acknowledgements page links to Prof. (Dr.) Prasannanshu's public profiles; those open
 other websites and need a connection.
 
 ## Credits and licences
@@ -203,7 +204,7 @@ other websites and need a connection.
 - three.js and howler.js are used under the MIT licence; their notices are
   kept inside each game file.
 - Two things are **not** free to reuse, and `LICENSES.md` says so: the
-  portrait of Prof. (Dr.) Prasannanshu on the home page, and the character models in
+  portrait of Prof. (Dr.) Prasannanshu on the acknowledgements page, and the character models in
   *An Imperial Message*, which were made with AI modelling tools whose terms
   depend on the plan they were made under.
 
@@ -217,4 +218,4 @@ answer a work of literature by making something of their own.
 
 ---
 
-Built 2026-10-13. Folder size: 10.6 MB.
+Built 2026-10-14. Folder size: 10.7 MB.

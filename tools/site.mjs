@@ -45,7 +45,7 @@ export const PAGES = {
   'index.html': {
     path: '', priority: '1.0', image: 'og-image.jpg',
     title: 'Playable Kafka: Before the Law and An Imperial Message, as games',
-    desc: 'Two free games that let students live Kafka’s parables instead of memorising them. They run offline in any browser, on a laptop or a classroom board. Made at National Law University, Delhi, in honour of Prof. (Dr.) Prasannanshu.',
+    desc: 'Play Kafka’s parables instead of memorising them: two free games, Before the Law and An Imperial Message, about fifteen minutes each. They run in any browser, on a laptop, phone or classroom board, with nothing to install. Made at National Law University, Delhi.',
     alt: 'Playable Readings: feel Kafka, don’t just read him. Before the Law and An Imperial Message as games.',
     ld: [
       { '@type': 'WebSite', '@id': SITE + '#site', name: SITE_NAME, alternateName: 'Playable Kafka', url: SITE, inLanguage: 'en',
@@ -61,6 +61,14 @@ export const PAGES = {
     ld: [{ '@type': 'Article', headline: 'For teachers: let your students feel Kafka before they discuss him', url: SITE + 'for-teachers.html',
       inLanguage: 'en', author: WHO, isAccessibleForFree: true, about: [{ '@id': BTL['@id'] }, { '@id': IM['@id'] }],
       audience: { '@type': 'EducationalAudience', educationalRole: 'teacher' } }],
+  },
+  'acknowledgements.html': {
+    path: 'acknowledgements.html', priority: '0.5', image: 'og-acknowledgements.jpg',
+    title: 'Acknowledgements: Prof. (Dr.) Prasannanshu, the teacher these games were made for',
+    desc: 'These games were made in honour of Prof. (Dr.) Prasannanshu of National Law University, Delhi: what his teaching gave his students, his scholarship, his books and where to find him.',
+    alt: 'Acknowledgements: a portrait of Prof. (Dr.) Prasannanshu in a ring of gold light.',
+    ld: [{ '@type': 'AboutPage', name: 'Acknowledgements', url: SITE + 'acknowledgements.html', inLanguage: 'en', author: WHO, isPartOf: { '@id': SITE + '#site' },
+      about: { '@type': 'Person', name: 'Prasannanshu', honorificPrefix: 'Prof. (Dr.)', jobTitle: 'Professor', worksFor: { '@type': 'CollegeOrUniversity', name: 'National Law University, Delhi' } } }],
   },
   'before-the-law.html': {
     path: 'before-the-law.html', priority: '0.9', image: 'og-before-the-law.jpg',
